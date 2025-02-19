@@ -9,7 +9,7 @@ class TextType(Enum):
     LINKS = "links"
     IMAGES = "images"
 '''
-TextType = Enum('TextType', ['NORMAL_TEXT', 'BOLD_TEXT', 'ITALIC_TEXT', 'CODE_TEXT', 'LINK', 'IMAGES'])
+TextType = Enum('TextType', ['NORMAL', 'BOLD', 'ITALIC', 'CODE', 'LINK', 'IMAGE'])
 
 class TextNode():
     def __init__(self, text, text_type, url=None):
