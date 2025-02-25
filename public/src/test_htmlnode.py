@@ -2,7 +2,7 @@ import unittest
 from htmlnode import *
 
 class TestHTMLNode(unittest.TestCase):
-    def testeq(self):
+    def test(self):
         test_props = {
             "href": "https://www.google.com",
             "target": "_blank",
