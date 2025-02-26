@@ -1,5 +1,9 @@
+import tests
+from src.htmlnode import HTMLNode
+
+
 import unittest
-from htmlnode import *
+#from htmlnode import *
 
 class TestHTMLNode(unittest.TestCase):
     def test(self):
