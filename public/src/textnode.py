@@ -1,15 +1,6 @@
 from enum import Enum
 
-'''
-class TextType(Enum):
-    NORMAL_TEXT = "normal"
-    BOLD_TEXT = "bold"
-    ITALIC_TEXT = "italic"
-    CODE_TEXT = "code"
-    LINKS = "links"
-    IMAGES = "images"
-'''
-TextType = Enum('TextType', ['NORMAL', 'BOLD', 'ITALIC', 'CODE', 'LINK', 'IMAGE'])
+TextType = Enum('TextType', ['TEXT', 'BOLD', 'ITALIC', 'CODE', 'LINK', 'IMAGE'])
 
 class TextNode():
     def __init__(self, text, text_type, url=None):
