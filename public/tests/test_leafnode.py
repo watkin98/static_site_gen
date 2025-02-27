@@ -1,7 +1,5 @@
 import unittest
 import tests
-# Add 'public/' to sys.path so 'src/' is recognized
-#sys.path.insert(0, os.path.abspath(os.path.join(os.path.dirname(__file__), '..', 'src')))
 from src.htmlnode import *
 from src.leafnode import *
 
