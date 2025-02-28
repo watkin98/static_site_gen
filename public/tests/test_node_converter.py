@@ -62,3 +62,11 @@ class TestNodeConverter(unittest.TestCase):
         html_node = text_node_to_html_node(node)
         self.assertEqual(html_node.tag, "b")
         self.assertEqual(html_node.value, "This is bold")
+
+    '''
+    def test_default(self):
+        node = TextNode("blah blah blah", TextType.YOLO)
+        with self.assertRaises(AttributeError) as context:
+            text_node_to_html_node(node)
+        #html_node = text_node_to_html_node(node)
+    '''
