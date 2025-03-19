@@ -1,5 +1,4 @@
 import unittest
-import tests
 from src.parentnode import *
 from src.leafnode import *
 
