@@ -9,6 +9,7 @@ def extract_markdown_images(text):
     # r"!\[([^\[\]]*)\]\(([^\(\)]*)\)"
 
     return re.findall(r"\!\[(.*?)\]\((.*?)\)", text)
+    #return re.findall(r"!\[([^\[\]]*)\]\(([^\(\)]*)\)", text)
 
     
 def extract_markdown_links(text):
@@ -19,3 +20,5 @@ def extract_markdown_links(text):
     # The regex below is the implementation I came up with. Bootdev's is the following: 
     # r"(?<!!)\[([^\[\]]*)\]\(([^\(\)]*)\)"
     return re.findall(r"\[(.*?)\]\((.*?)\)", text)
+    #print(f"\nWhat is happening: {text}")
+    #return re.findall(r"(?<!!)\[([^\[\]]*)\]\(([^\(\)]*)\)", text)

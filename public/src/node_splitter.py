@@ -59,8 +59,16 @@ def split_nodes_image(old_nodes):
         if node.text_type != TextType.TEXT:
             new_nodes.append(node)
             continue
-        
+        #print(f"\nImage Processing: {old_nodes}")
         extracted_md_image_values = extract_markdown_images(node.text)
+        #print(f"\nProcessed Image Node: {extracted_md_image_values}")
+
+        # Edge Case: function call above returns an empty list, indicating the presence
+        #            of string text prior to the markdown element
+        if extracted_md_image_values == []:
+            new_nodes.append(node)
+            continue
+
         temp = None
         firstRun = True
         for text_url_pair in extracted_md_image_values:
@@ -82,11 +90,11 @@ def split_nodes_image(old_nodes):
 
             temp = "".join(extracted_text[1:])
             firstRun = False
-            
+
         #Edge case: node has text following the final link
         if temp != '':
             new_nodes.append(TextNode(temp, TextType.TEXT))
-
+    #print(f"\nFurther Image Processing: {new_nodes}")
     return new_nodes
 
 def split_nodes_link(old_nodes):
@@ -100,8 +108,15 @@ def split_nodes_link(old_nodes):
         if node.text_type != TextType.TEXT:
             new_nodes.append(node)
             continue
-        
+        #print(f"\nWhat's going on: {old_nodes}\n{node}")
         extracted_md_image_values = extract_markdown_links(node.text)
+
+        # Edge Case: function call above returns an empty list, indicating the presence
+        #            of string text prior to the markdown element
+        if extracted_md_image_values == []:
+            new_nodes.append(node)
+            continue
+
         temp = None
         firstRun = True
         for text_url_pair in extracted_md_image_values:
