@@ -20,11 +20,6 @@ def markdown_to_blocks(markdown):
             lines_stripped_of_whitespace.append(line)
 
     # Remove empty blocks due to excessive newlines
-    #lines_stripped_of_whitespace = [item for item in lines_stripped_of_whitespace if item == '']
-    '''
-    for i in range(0, len(lines_stripped_of_whitespace)):
-        if lines_stripped_of_whitespace[i] is '':
-            del lines_stripped_of_whitespace[i]
-    '''
+    lines_stripped_of_whitespace = [item for item in lines_stripped_of_whitespace if item != '']
     #print(f"\n{lines_stripped_of_whitespace}")
     return lines_stripped_of_whitespace
