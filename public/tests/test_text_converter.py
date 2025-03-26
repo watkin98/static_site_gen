@@ -83,6 +83,25 @@ class TextToTextNodeTests(unittest.TestCase):
                 ]
         self.assertEqual(test_nodes, nodes)
 
+    def test_with_extra_bold(self):
+        test_nodes = text_to_textnodes("This is **text** with an _italic_ word and a `code block` and another **bold** and an ![obi wan image](https://i.imgur.com/fJRm4Vk.jpeg) and a [link](https://boot.dev) to boot.dev!")
+        nodes = [
+                    TextNode("This is ", TextType.TEXT),
+                    TextNode("text", TextType.BOLD),
+                    TextNode(" with an ", TextType.TEXT),
+                    TextNode("italic", TextType.ITALIC),
+                    TextNode(" word and a ", TextType.TEXT),
+                    TextNode("code block", TextType.CODE),
+                    TextNode(" and another ", TextType.TEXT),
+                    TextNode("bold", TextType.BOLD),
+                    TextNode(" and an ", TextType.TEXT),
+                    TextNode("obi wan image", TextType.IMAGE, "https://i.imgur.com/fJRm4Vk.jpeg"),
+                    TextNode(" and a ", TextType.TEXT),
+                    TextNode("link", TextType.LINK, "https://boot.dev"),
+                    TextNode(" to boot.dev!", TextType.TEXT),
+                ]
+        self.assertEqual(test_nodes, nodes)
+
     # Below are tests provided by boot.dev after submission
 
     def test_text_to_textnodes(self):
