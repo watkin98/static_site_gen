@@ -90,6 +90,14 @@ class TestBlockHandlers(unittest.TestCase):
             ],
         )
 
+    def test_markdown_header(self):
+        md = """
+# This is header text
+"""
+
+        blocktype = block_to_block_type(md)
+        self.assertEqual(blocktype, BlockType.heading)
+
     # Tests below come from boot.dev
 
     def test_markdown_to_blocks(self):
