@@ -46,24 +46,29 @@ def block_to_block_type(markdown):
     
     # Identifier for markdown block code
     potential_quote_substring = markdown.split('\n')
-    #print(f"\nlist: {potential_quote_substring}")
     # Remove empty blocks due to excessive newlines
     lines_stripped_of_whitespace = [item for item in potential_quote_substring if item != '']
-    #print(f"\n{lines_stripped_of_whitespace}")
-    isQuote = True
+    is_quote = True
     for item in lines_stripped_of_whitespace:
         if item[0] != '>':
-            isQuote = False
+            is_quote = False
             break
 
-    if isQuote:
+    if is_quote:
         return BlockType.quote
-    '''
-    if potential_quote_substring[0] == '>':
-        return BlockType.quote
-    '''
+    
     # Identifier for markdown block unordered_lists
+    potential_unordered_list_substring = markdown.split('\n')
+    # Remove empty blocks due to excessive newlines
+    lines_stripped_of_whitespace = [item for item in potential_unordered_list_substring if item != '']
+    is_unordered = True
+    for item in lines_stripped_of_whitespace:
+        if item[0:2] != '- ':
+            is_unordered = False
+            break
 
+    if is_unordered:
+        return BlockType.unordered_list
 
     # Identifier for markdown block ordered_lists
     

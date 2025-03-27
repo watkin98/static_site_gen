@@ -145,3 +145,85 @@ This is a quote
 
         blocktype = block_to_block_type(md)
         self.assertEqual(blocktype, BlockType.paragraph)
+
+    def test_markdown_unordered_list(self):
+        md = """
+- Apples
+- Bananas
+- Pears
+"""
+
+        blocktype = block_to_block_type(md)
+        self.assertEqual(blocktype, BlockType.unordered_list)
+
+    def test_markdown_unordered_list1(self):
+        md = """
+- Apples
+- Bananas
+- Pears
+- Carrots
+- Cucumbers
+"""
+
+        blocktype = block_to_block_type(md)
+        self.assertEqual(blocktype, BlockType.unordered_list)
+
+    def test_markdown_unordered_list_false(self):
+        md = """
+Apples
+- Bananas
+- Pears
+- Carrots
+- Cucumbers
+"""
+
+        blocktype = block_to_block_type(md)
+        self.assertEqual(blocktype, BlockType.paragraph)
+
+    def test_markdown_unordered_list_false1(self):
+        md = """
+-Apples
+- Bananas
+- Pears
+- Carrots
+- Cucumbers
+"""
+
+        blocktype = block_to_block_type(md)
+        self.assertEqual(blocktype, BlockType.paragraph)
+
+    def test_markdown_unordered_list_false2(self):
+        md = """
+- Apples
+- Bananas
+- Pears
+- Carrots
+Cucumbers
+"""
+
+        blocktype = block_to_block_type(md)
+        self.assertEqual(blocktype, BlockType.paragraph)
+
+    def test_markdown_unordered_list_false3(self):
+        md = """
+- Apples
+- Bananas
+- Pears
+- Carrots
+-Cucumbers
+"""
+
+        blocktype = block_to_block_type(md)
+        self.assertEqual(blocktype, BlockType.paragraph)
+
+    def test_markdown_unordered_list_false4(self):
+        md = """
+- Apples
+- Bananas
+- Pears
+- Carrots
+C - ucumbers
+"""
+
+        blocktype = block_to_block_type(md)
+        self.assertEqual(blocktype, BlockType.paragraph)
