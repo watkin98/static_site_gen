@@ -1,4 +1,5 @@
 from enum import Enum
+import math
 
 BlockType = Enum('BlockType', ['paragraph', 'heading', 'code', 'quote', 'unordered_list', 'ordered_list'])
 
@@ -71,5 +72,19 @@ def block_to_block_type(markdown):
         return BlockType.unordered_list
 
     # Identifier for markdown block ordered_lists
-    
+    potential_ordered_list_substring = markdown.split('\n')
+    # Remove empty blocks due to excessive newlines
+    lines_stripped_of_whitespace = [item for item in potential_ordered_list_substring if item != '']
+    is_ordered = True
+
+    for i in range(0, len(lines_stripped_of_whitespace)):
+        # Funky syntax below used to account for lists increasing by orders of magnitude (ex. 1 -> 10 -> 100)
+        if lines_stripped_of_whitespace[i][0:(3+(math.floor(math.log10(i+1))))] != f"{i + 1}. ": 
+            is_ordered = False
+            break
+
+    if is_ordered:
+        return BlockType.ordered_list
+
+    # Should all checks fail, identify the block as a paragraph BlockType
     return BlockType.paragraph
