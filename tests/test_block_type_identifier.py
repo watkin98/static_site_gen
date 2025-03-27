@@ -73,3 +73,45 @@ class TestBlockTypeIdentifier(unittest.TestCase):
 
         blocktype = block_to_block_type(md)
         self.assertEqual(blocktype, BlockType.paragraph)
+
+    def test_markdown_quote(self):
+        md = """
+> This is a quote
+"""
+
+        blocktype = block_to_block_type(md)
+        self.assertEqual(blocktype, BlockType.quote)
+
+    def test_markdown_quote1(self):
+        md = """
+>This is a quote
+"""
+
+        blocktype = block_to_block_type(md)
+        self.assertEqual(blocktype, BlockType.quote)
+
+    def test_markdown_quote(self):
+        md = """
+>>This is a quote
+"""
+
+        blocktype = block_to_block_type(md)
+        self.assertEqual(blocktype, BlockType.quote)
+
+    def test_markdown_quote_trailing_chevron(self):
+        md = """
+This is NOT a quote >
+"""
+
+        blocktype = block_to_block_type(md)
+        self.assertEqual(blocktype, BlockType.paragraph)
+
+    def test_markdown_false_quote(self):
+        md = """
+This is a quote
+"""
+
+        blocktype = block_to_block_type(md)
+        self.assertEqual(blocktype, BlockType.paragraph)
+
+    

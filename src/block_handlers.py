@@ -44,4 +44,9 @@ def block_to_block_type(markdown):
     if potential_code_substring[:3] == "```" and potential_code_substring[-3:] == "```":
         return BlockType.code
     
+    # Identifier for markdown quote code
+    potential_quote_substring = markdown.strip('\n')
+    if potential_quote_substring[0] == '>':
+        return BlockType.quote
+    
     return BlockType.paragraph
