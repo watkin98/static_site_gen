@@ -1,0 +1,43 @@
+import unittest
+from src.block_handlers import *
+
+class TestBlockTypeIdentifier(unittest.TestCase):
+    def test_markdown_header(self):
+        md = """
+# This is header text
+"""
+
+        blocktype = block_to_block_type(md)
+        self.assertEqual(blocktype, BlockType.heading)
+
+    def test_markdown_header_3_hashtags(self):
+        md = """
+### This is header text
+"""
+
+        blocktype = block_to_block_type(md)
+        self.assertEqual(blocktype, BlockType.heading)
+
+    def test_markdown_header_6_hashtags(self):
+        md = """
+###### This is header text
+"""
+
+        blocktype = block_to_block_type(md)
+        self.assertEqual(blocktype, BlockType.heading)
+
+    def test_markdown_header_7_hashtags(self):
+        md = """
+####### This is NOT header text
+"""
+
+        blocktype = block_to_block_type(md)
+        self.assertEqual(blocktype, BlockType.paragraph)
+
+    def test_markdown_header_no_hashtags(self):
+        md = """
+ This is NOT header text
+"""
+
+        blocktype = block_to_block_type(md)
+        self.assertEqual(blocktype, BlockType.paragraph)

@@ -32,10 +32,11 @@ def block_to_block_type(markdown):
     Takes in a string (i.e. document) of markdown block text and returns the BlockType of the block
     (paragraph, heading, code, quote, unordered_list, oredered_list)
     '''
+    # Identifier for markdown block headers
     header_syntax = ['# ', '## ', '### ', '#### ', '##### ', '###### ']
-    lst = list(filter(lambda x: x in markdown[0:7], header_syntax))
-    if lst is not []:
-        print(f"We got one!")
+    potential_header_substring = markdown[0:8].strip('\n')
+    lst = list(filter(lambda x: x in potential_header_substring, header_syntax))
+    if lst != []:
         return BlockType.heading 
     
     return BlockType.paragraph
