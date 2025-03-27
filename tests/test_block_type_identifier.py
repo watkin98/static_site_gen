@@ -41,3 +41,35 @@ class TestBlockTypeIdentifier(unittest.TestCase):
 
         blocktype = block_to_block_type(md)
         self.assertEqual(blocktype, BlockType.paragraph)
+
+    def test_markdown_code(self):
+        md = """
+```This is a code block```
+"""
+
+        blocktype = block_to_block_type(md)
+        self.assertEqual(blocktype, BlockType.code)
+
+    def test_markdown_code_with_trailing_and_preceeding_whitespace(self):
+        md = """
+``` This is a code block ```
+"""
+
+        blocktype = block_to_block_type(md)
+        self.assertEqual(blocktype, BlockType.code)
+    
+    def test_markdown_code_incorrect_preceeding_tics(self):
+        md = """
+``This is a code block```
+"""
+
+        blocktype = block_to_block_type(md)
+        self.assertEqual(blocktype, BlockType.paragraph)
+
+    def test_markdown_code_incorrect_trailing_tics(self):
+        md = """
+```This is a code block``
+"""
+
+        blocktype = block_to_block_type(md)
+        self.assertEqual(blocktype, BlockType.paragraph)

@@ -37,6 +37,11 @@ def block_to_block_type(markdown):
     potential_header_substring = markdown[0:8].strip('\n')
     lst = list(filter(lambda x: x in potential_header_substring, header_syntax))
     if lst != []:
-        return BlockType.heading 
+        return BlockType.heading
+    
+    # Identifier for markdown block code
+    potential_code_substring = markdown.strip('\n')
+    if potential_code_substring[:3] == "```" and potential_code_substring[-3:] == "```":
+        return BlockType.code
     
     return BlockType.paragraph
