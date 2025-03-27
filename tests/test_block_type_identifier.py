@@ -108,10 +108,40 @@ This is NOT a quote >
 
     def test_markdown_false_quote(self):
         md = """
-This is a quote
+This is NOT a quote
 """
 
         blocktype = block_to_block_type(md)
         self.assertEqual(blocktype, BlockType.paragraph)
 
-    
+    def test_markdown_quote_multiline(self):
+        md = """
+> This is a quote
+> with
+> multiple lines.
+"""
+
+        blocktype = block_to_block_type(md)
+        self.assertEqual(blocktype, BlockType.quote)
+
+    def test_markdown_quote_multiline_false(self):
+        md = """
+> This is a quote
+> with
+> multiple lines
+sike!
+"""
+
+        blocktype = block_to_block_type(md)
+        self.assertEqual(blocktype, BlockType.paragraph)
+
+    def test_markdown_quote_multiline_false1(self):
+        md = """
+This is a quote
+> with
+> multiple lines
+> sike!
+"""
+
+        blocktype = block_to_block_type(md)
+        self.assertEqual(blocktype, BlockType.paragraph)

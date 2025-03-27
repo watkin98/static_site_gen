@@ -44,9 +44,27 @@ def block_to_block_type(markdown):
     if potential_code_substring[:3] == "```" and potential_code_substring[-3:] == "```":
         return BlockType.code
     
-    # Identifier for markdown quote code
-    potential_quote_substring = markdown.strip('\n')
+    # Identifier for markdown block code
+    potential_quote_substring = markdown.split('\n')
+    #print(f"\nlist: {potential_quote_substring}")
+    # Remove empty blocks due to excessive newlines
+    lines_stripped_of_whitespace = [item for item in potential_quote_substring if item != '']
+    #print(f"\n{lines_stripped_of_whitespace}")
+    isQuote = True
+    for item in lines_stripped_of_whitespace:
+        if item[0] != '>':
+            isQuote = False
+            break
+
+    if isQuote:
+        return BlockType.quote
+    '''
     if potential_quote_substring[0] == '>':
         return BlockType.quote
+    '''
+    # Identifier for markdown block unordered_lists
+
+
+    # Identifier for markdown block ordered_lists
     
     return BlockType.paragraph
