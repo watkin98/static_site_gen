@@ -6,6 +6,5 @@ def markdown_to_html_node(markdown):
     potentially containing multiple child HTMLNode objects.
     '''
     md_blocks = markdown_to_blocks(markdown)
-    print(md_blocks)
-
+    
     
