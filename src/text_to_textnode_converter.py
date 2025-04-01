@@ -2,6 +2,9 @@ from src.textnode import *
 from src.node_splitter import *
 
 def text_to_textnodes(text):
+    '''
+    Takes in a raw string of markdown text and returns a list of textnodes tokenized by markdown syntax
+    '''
     textnodes = []
 
     starter_node = TextNode(text, TextType.TEXT)

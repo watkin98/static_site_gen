@@ -1,10 +1,17 @@
 from htmlnode import *
 
 class ParentNode(HTMLNode):
+    '''
+    Handles the nesting of HTML nodes into raw HTML, where any HTML node without 
+    children is considered a 'LeafNode' and nodes with children are considered 'parent' nodes.
+    '''
     def __init__(self, tag=None, children=None, props=None):
         super().__init__(tag=tag, children=children, props=props)
 
     def to_html(self):
+        '''
+        Takes in an HTML ParentNode object and returns a string of raw HTML
+        '''
         if self.tag == None:
             raise ValueError("Invalid HTML: tag required")
         

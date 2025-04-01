@@ -2,6 +2,9 @@ from textnode import *
 from leafnode import *
 
 def text_node_to_html_node(text_node):
+    '''
+    Takes in a TextNode object and returns an HTML LeafNode based on the former's TextType
+    '''
     match text_node.text_type:
         case TextType.TEXT:
             return LeafNode(value=text_node.text) 

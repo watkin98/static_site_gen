@@ -1,4 +1,8 @@
 class HTMLNode():
+    '''
+    Used to generate representations of "nodes" in an HTML document tree. The objects can be either 
+    block level or inline and are designed to output raw HTML.
+    '''
     def __init__(self, tag=None, value=None, children=None, props=None):
         self.tag = tag
         self.value = value
@@ -9,6 +13,9 @@ class HTMLNode():
         raise NotImplementedError("to_html method not implemented")
 
     def props_to_html(self):
+        '''
+        Takes in an HTMLNode and returns an HTML string of the attributes associated with that node.
+        '''
         if self.props is None:
             return ""
 

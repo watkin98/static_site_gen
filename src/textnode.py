@@ -1,8 +1,15 @@
 from enum import Enum
 
 TextType = Enum('TextType', ['TEXT', 'BOLD', 'ITALIC', 'CODE', 'LINK', 'IMAGE'])
+'''
+Type identifier for a TextNode (ex. 'TEXT', 'BOLD', 'IMAGE')
+'''
 
 class TextNode():
+    '''
+    A class for tokenizing raw inline text from markdown or HTML into a program object that we can write 
+    logic for and interact with.
+    '''
     def __init__(self, text, text_type, url=None):
         self.text = text 
         self.text_type = text_type

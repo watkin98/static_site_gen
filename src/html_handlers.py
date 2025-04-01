@@ -7,8 +7,8 @@ def markdown_to_html_node(markdown):
     '''
     # Turn the markdown text into a list of blocks
     md_blocks = markdown_to_blocks(markdown)
-
+    print(f"\nMarkdown: {md_blocks}")
     # Loop over the list to determine the BlockType for each block
     for block in md_blocks:
         blocktype = block_to_block_type(block)
-        print(f"\nBlock: {block}\nType: {blocktype}")
+        print(f"Block: {block}\nType: {blocktype}")
