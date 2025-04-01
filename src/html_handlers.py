@@ -1,4 +1,5 @@
 from src.block_handlers import *
+from src.htmlnode import *
 
 def markdown_to_html_node(markdown):
     '''
@@ -12,3 +13,4 @@ def markdown_to_html_node(markdown):
     for block in md_blocks:
         blocktype = block_to_block_type(block)
         print(f"Block: {block}\nType: {blocktype}")
+        html_node = HTMLNode()
