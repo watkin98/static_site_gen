@@ -3,8 +3,8 @@ from src.htmlnode import *
 
 def markdown_to_html_node(markdown):
     '''
-    Takes in a string (i.e. document) for markdown text and converts it into a single parent HTMLNode,
-    potentially containing multiple child HTMLNode objects.
+    Takes in a string (i.e. document) for markdown text and converts it into a single parent HTML node 
+    (raw HTML text), potentially containing multiple child HTMLNode objects.
     '''
     # Turn the markdown text into a list of blocks
     md_blocks = markdown_to_blocks(markdown)
@@ -13,4 +13,15 @@ def markdown_to_html_node(markdown):
     for block in md_blocks:
         blocktype = block_to_block_type(block)
         print(f"Block: {block}\nType: {blocktype}")
-        html_node = HTMLNode()
+        html_parent_node = HTMLNode()
+
+        # If block is code, do not parse inline children nodes
+        if blocktype == BlockType.code:
+            pass
+
+        # If block is anything else, parse inline children nodes
+        text = ""
+        inline_html_nodes = text_to_children(text)
+
+def text_to_children(text):
+    pass
