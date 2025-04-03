@@ -62,6 +62,11 @@ class TestNodeConverter(unittest.TestCase):
         self.assertEqual(html_node.tag, "b")
         self.assertEqual(html_node.value, "This is bold")
 
+    def test_texttype_attribute(self):
+        node = TextNode("This is bold", TextType.BOLD)
+        self.assertEqual(node.text_type, TextType.BOLD)
+
+
     '''
     def test_default(self):
         node = TextNode("blah blah blah", TextType.YOLO)
