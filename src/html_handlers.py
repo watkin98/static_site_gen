@@ -1,7 +1,8 @@
 from src.block_handlers import *
-from src.htmlnode import *
+from src.parentnode import *
 from src.text_to_textnode_converter import *
 from src.node_converter import *
+
 
 def markdown_to_html_node(markdown):
     '''
@@ -12,21 +13,34 @@ def markdown_to_html_node(markdown):
     md_blocks = markdown_to_blocks(markdown)
     #print(f"\nMarkdown: {md_blocks}")
     # Loop over the list to determine the BlockType for each block
-    html_nodes = []
+    blocks = []
+
     for block in md_blocks:
         blocktype = block_to_block_type(block)
         #print(f"Block: {block}\nType: {blocktype}")
-        html_parent_node = HTMLNode()
 
         # If block is code, do not parse inline children nodes
         if blocktype == BlockType.code:
             pass
 
         # If block is anything else, parse inline children nodes
-        inline_html_nodes = text_to_children(block)
-        html_nodes.extend(inline_html_nodes)
+        removed_newlines = block.replace('\n', ' ')
+        inline_html_nodes = text_to_children(removed_newlines)
 
-    print(f"HTML: {html_nodes}")
+        # Get html tag associated with blocktype
+        html_tag = block_type_to_html_tag(blocktype)
+        #print(f"Tag: {html_tag}")
+
+        converted_block = ParentNode(html_tag, inline_html_nodes)
+        blocks.append(converted_block)
+
+    #print(f"Converted Blocks: {blocks}")
+
+    html_parent_node = ParentNode('div', children=blocks)
+
+    #print(f"\nHTML: {html_nodes}")
+
+    return html_parent_node
 
 def text_to_children(text):
     '''
@@ -44,3 +58,13 @@ def text_to_children(text):
 
     return html_nodes
     #print(f"HTML Nodes: {html_nodes}")
+
+def block_type_to_html_tag(blocktype):
+    '''
+    Takes in a BlockType enum tag and returns the associated HTML tag
+    '''
+    match blocktype.name:
+        case 'paragraph':
+            return 'p'
+        case _:
+            return 'blah'
