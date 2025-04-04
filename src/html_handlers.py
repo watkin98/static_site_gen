@@ -17,15 +17,20 @@ def markdown_to_html_node(markdown):
 
     for block in md_blocks:
         blocktype = block_to_block_type(block)
-        #print(f"Block: {block}\nType: {blocktype}")
+        print(f"Block: {block}\nType: {blocktype}")
 
-        # If block is code, do not parse inline children nodes
-        if blocktype == BlockType.code:
-            pass
+        # If block is anything except code, remove newline characters
+        if blocktype.name != 'code':
+            block = block.replace('\n', ' ')
+        else:
+            code_string = block[3:-3]
+            code_string = code_string.replace('\n', '\\n').strip('\n')
+            code_node = TextNode(code_string, TextType.CODE)
+            code_html = text_node_to_html_node(code_node)
+            print(f"\nCode Block: {code_html}")
 
         # If block is anything else, parse inline children nodes
-        removed_newlines = block.replace('\n', ' ')
-        inline_html_nodes = text_to_children(removed_newlines)
+        inline_html_nodes = text_to_children(block)
 
         # Get html tag associated with blocktype
         html_tag = block_type_to_html_tag(blocktype)
@@ -66,5 +71,15 @@ def block_type_to_html_tag(blocktype):
     match blocktype.name:
         case 'paragraph':
             return 'p'
+        case 'heading':
+            return #Write helper for this
+        case 'code':
+            return #write helper for this
+        case 'quote':
+            return 'blockquote'
+        case 'unordered_list':
+            return
+        case 'ordered_list':
+            return
         case _:
-            return 'blah'
+            raise ValueError("Must be a valid BlockType")
