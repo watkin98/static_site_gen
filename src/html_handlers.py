@@ -24,10 +24,17 @@ def markdown_to_html_node(markdown):
             block = block.replace('\n', ' ')
         else:
             code_string = block[3:-3]
-            code_string = code_string.replace('\n', '\\n').strip('\n')
+            #code_string = code_string.replace('\n', '\\n')
+            if code_string.startswith('\n'):
+                code_string = code_string[1:]
+            #print(f"\nCode String: {code_string}")
             code_node = TextNode(code_string, TextType.CODE)
             code_html = text_node_to_html_node(code_node)
             #print(f"\nCode Block: {code_html}")
+            code_html_node = ParentNode('pre', [code_html])
+            #print(f"\nHTML Code Node: {code_html_node}")
+            blocks.append(code_html_node)
+            continue
 
         # If block is anything else, parse inline children nodes
         inline_html_nodes = text_to_children(block)
@@ -43,7 +50,7 @@ def markdown_to_html_node(markdown):
 
     html_parent_node = ParentNode('div', children=blocks)
 
-    #print(f"\nHTML: {html_nodes}")
+    #print(f"\nHTML: {html_parent_node}")
 
     return html_parent_node
 
