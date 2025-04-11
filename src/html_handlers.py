@@ -20,6 +20,7 @@ def markdown_to_html_node(markdown):
         #print(f"Block: {block}\nType: {blocktype}")
 
         # If block is anything except code, remove newline characters
+        # If code, call helper function
         if blocktype.name != 'code':
             block = block.replace('\n', ' ')
         else:

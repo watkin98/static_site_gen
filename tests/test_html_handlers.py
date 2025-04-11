@@ -35,4 +35,35 @@ This is another paragraph with _italic_ text and `code` here
             html,
             "<div><pre><code>This is text that _should_ remain\nthe **same** even with inline stuff\n</code></pre></div>",
         )
+
+    def test_html_paragraph_with_heading(self):
+        md = """
+# This is a heading
+
+This is **bolded** paragraph
+text in a p
+tag here
+
+This is another paragraph with _italic_ text and `code` here
+
+"""
+
+        node = markdown_to_html_node(md)
+        html = node.to_html()
+        #print(f"\nHTML: {html}")
+        self.assertEqual(
+            html,
+            "<div><p><h1>This is a heading</h1></p><p>This is <b>bolded</b> paragraph text in a p tag here</p><p>This is another paragraph with <i>italic</i> text and <code>code</code> here</p></div>",
+        )
+
+    def test_quotes(self):
+        pass
+
+    def test_unordered_lists(self):
+        pass
+
+    def test_ordered_lists(self):
+        pass
+
+
         
