@@ -23,17 +23,8 @@ def markdown_to_html_node(markdown):
         if blocktype.name != 'code':
             block = block.replace('\n', ' ')
         else:
-            code_string = block[3:-3]
-            #code_string = code_string.replace('\n', '\\n')
-            if code_string.startswith('\n'):
-                code_string = code_string[1:]
-            #print(f"\nCode String: {code_string}")
-            code_node = TextNode(code_string, TextType.CODE)
-            code_html = text_node_to_html_node(code_node)
-            #print(f"\nCode Block: {code_html}")
-            code_html_node = ParentNode('pre', [code_html])
-            #print(f"\nHTML Code Node: {code_html_node}")
-            blocks.append(code_html_node)
+            code_node = code_block_handler(block)
+            blocks.append(code_node)
             continue
 
         # If block is anything else, parse inline children nodes
@@ -90,3 +81,16 @@ def block_type_to_html_tag(blocktype):
             return
         case _:
             raise ValueError("Must be a valid BlockType")
+        
+def code_block_handler(md):
+    code_string = md[3:-3]
+    #code_string = code_string.replace('\n', '\\n')
+    if code_string.startswith('\n'):
+        code_string = code_string[1:]
+    #print(f"\nCode String: {code_string}")
+    code_node = TextNode(code_string, TextType.CODE)
+    code_html = text_node_to_html_node(code_node)
+    #print(f"\nCode Block: {code_html}")
+    code_html_node = ParentNode('pre', [code_html])
+    #print(f"\nHTML Code Node: {code_html_node}")
+    return code_html_node
