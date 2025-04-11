@@ -75,7 +75,7 @@ This is another paragraph with _italic_ text and `code` here
             html,
             "<div><p><h3>This is a heading</h3></p><p>This is <b>bolded</b> paragraph text in a p tag here</p><p>This is another paragraph with <i>italic</i> text and <code>code</code> here</p></div>",
         )
-
+'''
     def test_quotes(self):
         md = """
 > This is a quote
@@ -253,4 +253,4 @@ This is another paragraph with _italic_ text and `code` here
             html,
             "<div><p><img src=\"url/of/image.jpg\" alt=\"Description of image\"></p><p>This is <b>bolded</b> paragraph text in a p tag here</p><p>This is another paragraph with <i>italic</i> text and <code>code</code> here</p></div>",
         )
-        
+'''

@@ -30,10 +30,20 @@ def markdown_to_html_node(markdown):
 
         # If block is anything else, parse inline children nodes
         inline_html_nodes = text_to_children(block)
+        print(inline_html_nodes)
 
         # Get html tag associated with blocktype
         html_tag = block_type_to_html_tag(blocktype)
         #print(f"Tag: {html_tag}")
+
+        # Handle heading, unordered lists, and ordered lists
+        if html_tag == 'h':
+            #html_tag = get_heading_number(block)
+            pass
+        elif html_tag == 'ul':
+            pass
+        elif html_tag == 'ol':
+            pass
 
         converted_block = ParentNode(html_tag, inline_html_nodes)
         blocks.append(converted_block)
@@ -71,15 +81,15 @@ def block_type_to_html_tag(blocktype):
         case 'paragraph':
             return 'p'
         case 'heading':
-            return #Write helper for this
+            return 'h' # WRITE FOLLOW UP HELPER IN ORIGINAL FCN
         case 'code':
-            return #write helper for this
+            raise ValueError("Code blocktype somehow got past the handler")
         case 'quote':
             return 'blockquote'
         case 'unordered_list':
-            return
+            return 'ul' # WRITE FOLLOW UP HELPER IN ORIGINAL FCN
         case 'ordered_list':
-            return
+            return 'ol' # WRITE FOLLOW UP HELPER IN ORIGINAL FCN
         case _:
             raise ValueError("Must be a valid BlockType")
         
