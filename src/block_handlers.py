@@ -45,7 +45,7 @@ def block_to_block_type(markdown):
     if potential_code_substring[:3] == "```" and potential_code_substring[-3:] == "```":
         return BlockType.code
     
-    # Identifier for markdown block code
+    # Identifier for markdown block quote
     potential_quote_substring = markdown.split('\n')
     # Remove empty blocks due to excessive newlines
     lines_stripped_of_whitespace = [item for item in potential_quote_substring if item != '']

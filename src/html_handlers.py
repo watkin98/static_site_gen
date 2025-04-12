@@ -30,7 +30,7 @@ def markdown_to_html_node(markdown):
 
         # If block is anything else, parse inline children nodes
         inline_html_nodes = text_to_children(block)
-        print(inline_html_nodes)
+        #print(inline_html_nodes)
 
         # Get html tag associated with blocktype
         html_tag = block_type_to_html_tag(blocktype)
@@ -38,12 +38,15 @@ def markdown_to_html_node(markdown):
 
         # Handle heading, unordered lists, and ordered lists
         if html_tag == 'h':
-            #html_tag = get_heading_number(block)
-            pass
+            html_tag = get_heading_number(block)
+            print(f"\n{inline_html_nodes[0].value}")
+            inline_html_nodes[0].value = inline_html_nodes[0].value[2:] # 2 IS HARDCODED ATTN!!!!!!!!!!!!!!!!!
+            print(f"\n{inline_html_nodes[0].value}")
+            #print(f"Header Tag: {html_tag}")
         elif html_tag == 'ul':
-            pass
+            print(f"UL found!")
         elif html_tag == 'ol':
-            pass
+            print(f"OL found!")
 
         converted_block = ParentNode(html_tag, inline_html_nodes)
         blocks.append(converted_block)
@@ -81,19 +84,22 @@ def block_type_to_html_tag(blocktype):
         case 'paragraph':
             return 'p'
         case 'heading':
-            return 'h' # WRITE FOLLOW UP HELPER IN ORIGINAL FCN
+            return 'h'
         case 'code':
             raise ValueError("Code blocktype somehow got past the handler")
         case 'quote':
             return 'blockquote'
         case 'unordered_list':
-            return 'ul' # WRITE FOLLOW UP HELPER IN ORIGINAL FCN
+            return 'ul'
         case 'ordered_list':
-            return 'ol' # WRITE FOLLOW UP HELPER IN ORIGINAL FCN
+            return 'ol'
         case _:
             raise ValueError("Must be a valid BlockType")
         
 def code_block_handler(md):
+    '''
+    Takes in a markdown code string and returns an HTML parent node with the code tag and string as the value
+    '''
     code_string = md[3:-3]
     #code_string = code_string.replace('\n', '\\n')
     if code_string.startswith('\n'):
@@ -105,3 +111,15 @@ def code_block_handler(md):
     code_html_node = ParentNode('pre', [code_html])
     #print(f"\nHTML Code Node: {code_html_node}")
     return code_html_node
+
+def get_heading_number(header):
+    '''
+    Takes in a markdown header string and returns the numbered HTML header tag
+    '''
+    header_syntax = {'#': 1, '##': 2, '###': 3, '####': 4, '#####': 5, '######': 6}
+    header_substring = header.split(' ')[0]
+    #print(f"\n{header_substring}")
+
+    num_of_header_hashes = header_syntax[header_substring]
+
+    return f'h{num_of_header_hashes}'
