@@ -40,7 +40,7 @@ def markdown_to_html_node(markdown):
         if html_tag == 'h':
             html_tag = get_heading_number(block)
             print(f"\n{inline_html_nodes[0].value}")
-            inline_html_nodes[0].value = inline_html_nodes[0].value[2:] # 2 IS HARDCODED ATTN!!!!!!!!!!!!!!!!!
+            inline_html_nodes[0].value = inline_html_nodes[0].value[2:] # 2 IS HARDCODED ATTN!!!!!!!!!!!!!!!!! A comment so i know what I did
             print(f"\n{inline_html_nodes[0].value}")
             #print(f"Header Tag: {html_tag}")
         elif html_tag == 'ul':

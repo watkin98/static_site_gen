@@ -38,7 +38,7 @@ This is another paragraph with _italic_ text and `code` here
 
     def test_html_paragraph_with_heading(self):
         md = """
-# This is a heading
+## This is a heading
 
 This is **bolded** paragraph
 text in a p
@@ -50,10 +50,10 @@ This is another paragraph with _italic_ text and `code` here
 
         node = markdown_to_html_node(md)
         html = node.to_html()
-        #print(f"\nHTML: {html}")
+        print(f"\nCon HTML: {html}\nTst HTML: <div><h1>This is a heading</h1><p>This is <b>bolded</b> paragraph text in a p tag here</p><p>This is another paragraph with <i>italic</i> text and <code>code</code> here</p></div>")
         self.assertEqual(
             html,
-            "<div><p><h1>This is a heading</h1></p><p>This is <b>bolded</b> paragraph text in a p tag here</p><p>This is another paragraph with <i>italic</i> text and <code>code</code> here</p></div>",
+            "<div><h1>This is a heading</h1><p>This is <b>bolded</b> paragraph text in a p tag here</p><p>This is another paragraph with <i>italic</i> text and <code>code</code> here</p></div>",
         )
 '''
     def test_html_paragraph_with_multi_heading(self):
