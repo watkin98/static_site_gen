@@ -38,17 +38,20 @@ def markdown_to_html_node(markdown):
 
         # Handle heading, unordered lists, and ordered lists
         if html_tag == 'h':
+            # Determine how many #'s to remove from value
             html_tag = get_heading_number(block)
-            print(f"\n{inline_html_nodes[0].value}")
-            inline_html_nodes[0].value = inline_html_nodes[0].value[2:] # 2 IS HARDCODED ATTN!!!!!!!!!!!!!!!!! A comment so i know what I did
-            print(f"\n{inline_html_nodes[0].value}")
-            #print(f"Header Tag: {html_tag}")
+            heading_num = int(html_tag[1])
+            inline_html_nodes[0].value = inline_html_nodes[0].value[heading_num+1:] 
+        elif html_tag == 'blockquote':
+            # Remove '> '
+            inline_html_nodes[0].value = inline_html_nodes[0].value[2:]
         elif html_tag == 'ul':
             print(f"UL found!")
         elif html_tag == 'ol':
             print(f"OL found!")
 
         converted_block = ParentNode(html_tag, inline_html_nodes)
+        #print(f"\nConverted HTML Node: {converted_block}")
         blocks.append(converted_block)
 
     #print(f"Converted Blocks: {blocks}")
