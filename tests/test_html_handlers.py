@@ -145,7 +145,7 @@ This is another paragraph with _italic_ text and `code` here
         #print(f"\nHTML: {html}")
         self.assertEqual(
             html,
-            "<div><p><ul><li>Item 1</li><li>Item 2</li><li>Item 3</li></ul></p><p>This is <b>bolded</b> paragraph text in a p tag here</p><p>This is another paragraph with <i>italic</i> text and <code>code</code> here</p></div>",
+            "<div><ul><li>Item 1</li><li>Item 2</li><li>Item 3</li></ul><p>This is <b>bolded</b> paragraph text in a p tag here</p><p>This is another paragraph with <i>italic</i> text and <code>code</code> here</p></div>",
         )
 
     def test_ordered_lists(self):
@@ -161,7 +161,7 @@ This is another paragraph with _italic_ text and `code` here
         #print(f"\nHTML: {html}")
         self.assertEqual(
             html,
-            "<div><p><ol><li>Item 1</li><li>Item 2</li><li>Item 3</li></ol></p></div>",
+            "<div><ol><li>Item 1</li><li>Item 2</li><li>Item 3</li></ol></div>",
         )
 
     def test_ordered_lists_extended(self):
@@ -183,7 +183,7 @@ This is another paragraph with _italic_ text and `code` here
         #print(f"\nHTML: {html}")
         self.assertEqual(
             html,
-            "<div><p><ol><li>Item 1</li><li>Item 2</li><li>Item 3</li></ol></p><p>This is <b>bolded</b> paragraph text in a p tag here</p><p>This is another paragraph with <i>italic</i> text and <code>code</code> here</p></div>",
+            "<div><ol><li>Item 1</li><li>Item 2</li><li>Item 3</li></ol><p>This is <b>bolded</b> paragraph text in a p tag here</p><p>This is another paragraph with <i>italic</i> text and <code>code</code> here</p></div>",
         )
 
     def test_links(self):
@@ -231,7 +231,7 @@ This is another paragraph with _italic_ text and `code` here
         #print(f"\nHTML: {html}")
         self.assertEqual(
             html,
-            "<div><p><img src=\"url/of/image.jpg\" alt=\"Description of image\"></p></div>",
+            "<div><img src=\"url/of/image.jpg\" alt=\"Description of image\"></div>",
         )
 
     def test_images_extended(self):
@@ -251,6 +251,6 @@ This is another paragraph with _italic_ text and `code` here
         #print(f"\nHTML: {html}")
         self.assertEqual(
             html,
-            "<div><p><img src=\"url/of/image.jpg\" alt=\"Description of image\"></p><p>This is <b>bolded</b> paragraph text in a p tag here</p><p>This is another paragraph with <i>italic</i> text and <code>code</code> here</p></div>",
+            "<div><img src=\"url/of/image.jpg\" alt=\"Description of image\"><p>This is <b>bolded</b> paragraph text in a p tag here</p><p>This is another paragraph with <i>italic</i> text and <code>code</code> here</p></div>",
         )
 '''
