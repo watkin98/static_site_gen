@@ -46,7 +46,9 @@ def markdown_to_html_node(markdown):
             # Remove '> '
             inline_html_nodes[0].value = inline_html_nodes[0].value[2:]
         elif html_tag == 'ul':
-            print(f"UL found!")
+            #print(f"List Items: {inline_html_nodes[0].value}")
+            inline_html_nodes = text_list_to_html_nodes(inline_html_nodes[0].value)
+            #print(f"UL found!")
         elif html_tag == 'ol':
             print(f"OL found!")
 
@@ -126,3 +128,17 @@ def get_heading_number(header):
     num_of_header_hashes = header_syntax[header_substring]
 
     return f'h{num_of_header_hashes}'
+
+def text_list_to_html_nodes(lst):
+    '''
+    Takes in a string that is supposed to be an unordered list block and returns a list (python)
+    of HTML nodes
+    '''
+    html_nodes = []
+    items_in_UL_list = lst.split('- ')
+    items_in_UL_list = list(map(lambda x: x.strip(), items_in_UL_list[1:]))
+    for item in items_in_UL_list:
+        node = LeafNode('li', item)
+        html_nodes.append(node)
+
+    return html_nodes

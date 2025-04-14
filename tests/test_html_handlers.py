@@ -110,6 +110,26 @@ This is another paragraph with _italic_ text and `code` here
             "<div><blockquote>This is a quote</blockquote><p>This is <b>bolded</b> paragraph text in a p tag here</p><p>This is another paragraph with <i>italic</i> text and <code>code</code> here</p></div>",
         )
 
+    def test_quotes_extended_end(self):
+        md = """
+This is **bolded** paragraph
+text in a p
+tag here
+
+This is another paragraph with _italic_ text and `code` here
+
+> This is a quote
+
+"""
+
+        node = markdown_to_html_node(md)
+        html = node.to_html()
+        #print(f"\nHTML: {html}")
+        self.assertEqual(
+            html,
+            "<div><p>This is <b>bolded</b> paragraph text in a p tag here</p><p>This is another paragraph with <i>italic</i> text and <code>code</code> here</p><blockquote>This is a quote</blockquote></div>",
+        )
+
     def test_unordered_lists(self):
         md = """
 - Item 1
@@ -123,9 +143,9 @@ This is another paragraph with _italic_ text and `code` here
         #print(f"\nHTML: {html}")
         self.assertEqual(
             html,
-            "<div><p><ul><li>Item 1</li><li>Item 2</li><li>Item 3</li></ul></p></div>",
+            "<div><ul><li>Item 1</li><li>Item 2</li><li>Item 3</li></ul></div>",
         )
-'''
+
     def test_unordered_lists_extended(self):
         md = """
 - Item 1
@@ -147,7 +167,7 @@ This is another paragraph with _italic_ text and `code` here
             html,
             "<div><ul><li>Item 1</li><li>Item 2</li><li>Item 3</li></ul><p>This is <b>bolded</b> paragraph text in a p tag here</p><p>This is another paragraph with <i>italic</i> text and <code>code</code> here</p></div>",
         )
-
+'''
     def test_ordered_lists(self):
         md = """
 1. Item 1
