@@ -3,6 +3,7 @@ from src.parentnode import *
 from src.text_to_textnode_converter import *
 from src.node_converter import *
 
+import re
 
 def markdown_to_html_node(markdown):
     '''
@@ -46,11 +47,9 @@ def markdown_to_html_node(markdown):
             # Remove '> '
             inline_html_nodes[0].value = inline_html_nodes[0].value[2:]
         elif html_tag == 'ul':
-            #print(f"List Items: {inline_html_nodes[0].value}")
-            inline_html_nodes = text_list_to_html_nodes(inline_html_nodes[0].value)
-            #print(f"UL found!")
+            inline_html_nodes = ul_text_list_to_html_nodes(inline_html_nodes[0].value)
         elif html_tag == 'ol':
-            print(f"OL found!")
+            inline_html_nodes = ol_text_list_to_html_nodes(inline_html_nodes[0].value)
 
         converted_block = ParentNode(html_tag, inline_html_nodes)
         #print(f"\nConverted HTML Node: {converted_block}")
@@ -129,7 +128,7 @@ def get_heading_number(header):
 
     return f'h{num_of_header_hashes}'
 
-def text_list_to_html_nodes(lst):
+def ul_text_list_to_html_nodes(lst):
     '''
     Takes in a string that is supposed to be an unordered list block and returns a list (python)
     of HTML nodes
@@ -138,6 +137,23 @@ def text_list_to_html_nodes(lst):
     items_in_UL_list = lst.split('- ')
     items_in_UL_list = list(map(lambda x: x.strip(), items_in_UL_list[1:]))
     for item in items_in_UL_list:
+        node = LeafNode('li', item)
+        html_nodes.append(node)
+
+    return html_nodes
+
+def ol_text_list_to_html_nodes(lst):
+    '''
+    Takes in a string that is supposed to be an ordered list block and returns a list (python)
+    of HTML nodes
+    '''
+    html_nodes = []
+    items_in_OL_list = re.split(r'[0-9]\.', lst)
+    new_list = list(filter(lambda x: x != '', items_in_OL_list))
+
+    newer_list = list(map(lambda x: x.strip(), new_list))
+
+    for item in newer_list:
         node = LeafNode('li', item)
         html_nodes.append(node)
 

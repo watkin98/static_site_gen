@@ -167,7 +167,7 @@ This is another paragraph with _italic_ text and `code` here
             html,
             "<div><ul><li>Item 1</li><li>Item 2</li><li>Item 3</li></ul><p>This is <b>bolded</b> paragraph text in a p tag here</p><p>This is another paragraph with <i>italic</i> text and <code>code</code> here</p></div>",
         )
-'''
+
     def test_ordered_lists(self):
         md = """
 1. Item 1
@@ -205,7 +205,7 @@ This is another paragraph with _italic_ text and `code` here
             html,
             "<div><ol><li>Item 1</li><li>Item 2</li><li>Item 3</li></ol><p>This is <b>bolded</b> paragraph text in a p tag here</p><p>This is another paragraph with <i>italic</i> text and <code>code</code> here</p></div>",
         )
-
+'''
     def test_links(self):
         md = """
 This is a paragraph with a [link](https://www.google.com).
