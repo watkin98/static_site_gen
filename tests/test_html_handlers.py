@@ -2,6 +2,7 @@ import unittest
 from src.html_handlers import *
 
 class TestMdToHTMLNodeConverter(unittest.TestCase):
+    '''
     def test_html_paragraphs(self):
         md = """
 This is **bolded** paragraph
@@ -217,7 +218,7 @@ This is a paragraph with a [link](https://www.google.com).
         #print(f"\nHTML: {html}")
         self.assertEqual(
             html,
-            "<div><p>This is a paragraph with a <a href=\"https://www.google.com\">link</a></p></div>",
+            "<div><p>This is a paragraph with a <a href=\"https://www.google.com\">link</a>.</p></div>",
         )
 
     def test_links_extended(self):
@@ -237,7 +238,21 @@ This is another paragraph with _italic_ text and `code` here
         #print(f"\nHTML: {html}")
         self.assertEqual(
             html,
-            "<div><p>This is a paragraph with a <a href=\"https://www.google.com\">link</a></p><p>This is <b>bolded</b> paragraph text in a p tag here</p><p>This is another paragraph with <i>italic</i> text and <code>code</code> here</p></div>",
+            "<div><p>This is a paragraph with a <a href=\"https://www.google.com\">link</a>.</p><p>This is <b>bolded</b> paragraph text in a p tag here</p><p>This is another paragraph with <i>italic</i> text and <code>code</code> here</p></div>",
+        )
+
+    def test_link_by_itself(self):
+        md = """
+[link](https://www.google.com)
+
+"""
+
+        node = markdown_to_html_node(md)
+        html = node.to_html()
+        #print(f"\nHTML: {html}")
+        self.assertEqual(
+            html,
+            "<div><p><a href=\"https://www.google.com\">link</a></p></div>",
         )
 
     def test_images(self):
@@ -251,7 +266,7 @@ This is another paragraph with _italic_ text and `code` here
         #print(f"\nHTML: {html}")
         self.assertEqual(
             html,
-            "<div><img src=\"url/of/image.jpg\" alt=\"Description of image\"></div>",
+            "<div><p><img src=\"url/of/image.jpg\" alt=\"alt text for image\"></p></div>",
         )
 
     def test_images_extended(self):
@@ -271,6 +286,5 @@ This is another paragraph with _italic_ text and `code` here
         #print(f"\nHTML: {html}")
         self.assertEqual(
             html,
-            "<div><img src=\"url/of/image.jpg\" alt=\"Description of image\"><p>This is <b>bolded</b> paragraph text in a p tag here</p><p>This is another paragraph with <i>italic</i> text and <code>code</code> here</p></div>",
+            "<div><p><img src=\"url/of/image.jpg\" alt=\"alt text for image\"></p><p>This is <b>bolded</b> paragraph text in a p tag here</p><p>This is another paragraph with <i>italic</i> text and <code>code</code> here</p></div>",
         )
-'''

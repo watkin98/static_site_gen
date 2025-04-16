@@ -1,7 +1,7 @@
 from enum import Enum
 import math
 
-BlockType = Enum('BlockType', ['paragraph', 'heading', 'code', 'quote', 'unordered_list', 'ordered_list'])
+BlockType = Enum('BlockType', ['paragraph', 'heading', 'code', 'quote', 'unordered_list', 'ordered_list', 'link', 'image'])
 
 def markdown_to_blocks(markdown):
     '''
@@ -85,6 +85,14 @@ def block_to_block_type(markdown):
 
     if is_ordered:
         return BlockType.ordered_list
-
+    
+    # Identifier for markdown block links
+    #print(f"\nWhat is this md: {markdown}")
+    if markdown[0] == '[':
+        return BlockType.link
+    
+    # Identifier for markdown block images
+    if markdown[0:2] == '![':
+        return BlockType.image
     # Should all checks fail, identify the block as a paragraph BlockType
     return BlockType.paragraph

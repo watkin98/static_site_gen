@@ -31,11 +31,11 @@ def markdown_to_html_node(markdown):
 
         # If block is anything else, parse inline children nodes
         inline_html_nodes = text_to_children(block)
-        #print(inline_html_nodes)
+        #print(f"\n{inline_html_nodes}")
 
         # Get html tag associated with blocktype
         html_tag = block_type_to_html_tag(blocktype)
-        #print(f"Tag: {html_tag}")
+        #print(f"\nTag: {html_tag}")
 
         # Handle heading, unordered lists, and ordered lists
         if html_tag == 'h':
