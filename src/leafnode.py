@@ -14,6 +14,7 @@ class LeafNode(HTMLNode):
         if self.tag == None:
             return self.value
         
+        # Edge Case: The node is an image
         if self.tag == 'img':
             return f"<{self.tag}{self.props_to_html()}>{self.value}"
         
