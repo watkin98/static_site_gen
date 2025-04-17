@@ -205,7 +205,7 @@ This is another paragraph with _italic_ text and `code` here
             html,
             "<div><ol><li>Item 1</li><li>Item 2</li><li>Item 3</li></ol><p>This is <b>bolded</b> paragraph text in a p tag here</p><p>This is another paragraph with <i>italic</i> text and <code>code</code> here</p></div>",
         )
-'''
+
     def test_links(self):
         md = """
 This is a paragraph with a [link](https://www.google.com).
@@ -217,7 +217,7 @@ This is a paragraph with a [link](https://www.google.com).
         #print(f"\nHTML: {html}")
         self.assertEqual(
             html,
-            "<div><p>This is a paragraph with a <a href=\"https://www.google.com\">link</a></p></div>",
+            "<div><p>This is a paragraph with a <a href=\"https://www.google.com\">link</a>.</p></div>",
         )
 
     def test_links_extended(self):
@@ -237,7 +237,61 @@ This is another paragraph with _italic_ text and `code` here
         #print(f"\nHTML: {html}")
         self.assertEqual(
             html,
-            "<div><p>This is a paragraph with a <a href=\"https://www.google.com\">link</a></p><p>This is <b>bolded</b> paragraph text in a p tag here</p><p>This is another paragraph with <i>italic</i> text and <code>code</code> here</p></div>",
+            "<div><p>This is a paragraph with a <a href=\"https://www.google.com\">link</a>.</p><p>This is <b>bolded</b> paragraph text in a p tag here</p><p>This is another paragraph with <i>italic</i> text and <code>code</code> here</p></div>",
+        )
+
+    def test_links_standalone(self):
+        md = """
+[link](https://www.google.com)
+
+"""
+
+        node = markdown_to_html_node(md)
+        html = node.to_html()
+        #print(f"\nHTML: {html}")
+        self.assertEqual(
+            html,
+            "<div><a href=\"https://www.google.com\">link</a></div>",
+        )
+
+    def test_links_standalone_extended(self):
+        md = """
+[link](https://www.google.com)
+
+This is **bolded** paragraph
+text in a p
+tag here
+
+This is another paragraph with _italic_ text and `code` here
+
+"""
+
+        node = markdown_to_html_node(md)
+        html = node.to_html()
+        #print(f"\nHTML: {html}")
+        self.assertEqual(
+            html,
+            "<div><a href=\"https://www.google.com\">link</a><p>This is <b>bolded</b> paragraph text in a p tag here</p><p>This is another paragraph with <i>italic</i> text and <code>code</code> here</p></div>",
+        )
+
+    def test_links_standalone_extended_end(self):
+        md = """
+This is **bolded** paragraph
+text in a p
+tag here
+
+This is another paragraph with _italic_ text and `code` here
+
+[link](https://www.google.com)
+
+"""
+
+        node = markdown_to_html_node(md)
+        html = node.to_html()
+        #print(f"\nHTML: {html}")
+        self.assertEqual(
+            html,
+            "<div><p>This is <b>bolded</b> paragraph text in a p tag here</p><p>This is another paragraph with <i>italic</i> text and <code>code</code> here</p><a href=\"https://www.google.com\">link</a></div>",
         )
 
     def test_images(self):
@@ -251,7 +305,7 @@ This is another paragraph with _italic_ text and `code` here
         #print(f"\nHTML: {html}")
         self.assertEqual(
             html,
-            "<div><img src=\"url/of/image.jpg\" alt=\"Description of image\"></div>",
+            "<div><img src=\"url/of/image.jpg\" alt=\"alt text for image\"></div>",
         )
 
     def test_images_extended(self):
@@ -271,6 +325,25 @@ This is another paragraph with _italic_ text and `code` here
         #print(f"\nHTML: {html}")
         self.assertEqual(
             html,
-            "<div><img src=\"url/of/image.jpg\" alt=\"Description of image\"><p>This is <b>bolded</b> paragraph text in a p tag here</p><p>This is another paragraph with <i>italic</i> text and <code>code</code> here</p></div>",
+            "<div><img src=\"url/of/image.jpg\" alt=\"alt text for image\"><p>This is <b>bolded</b> paragraph text in a p tag here</p><p>This is another paragraph with <i>italic</i> text and <code>code</code> here</p></div>",
         )
-'''
+
+    def test_images_extended_end(self):
+        md = """
+This is **bolded** paragraph
+text in a p
+tag here
+
+This is another paragraph with _italic_ text and `code` here
+
+![alt text for image](url/of/image.jpg)
+
+"""
+
+        node = markdown_to_html_node(md)
+        html = node.to_html()
+        #print(f"\nHTML: {html}")
+        self.assertEqual(
+            html,
+            "<div><p>This is <b>bolded</b> paragraph text in a p tag here</p><p>This is another paragraph with <i>italic</i> text and <code>code</code> here</p><img src=\"url/of/image.jpg\" alt=\"alt text for image\"></div>",
+        )

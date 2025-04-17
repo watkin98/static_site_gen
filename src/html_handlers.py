@@ -51,12 +51,25 @@ def markdown_to_html_node(markdown):
         elif html_tag == 'ol':
             inline_html_nodes = ol_text_list_to_html_nodes(inline_html_nodes[0].value)
 
-        converted_block = ParentNode(html_tag, inline_html_nodes)
+        #print(f"\nInline Nodes: {inline_html_nodes}\nHTML Tag: {html_tag}")
+
+        # Edge Case: The whole block consists only of a link
+        if len(inline_html_nodes) == 1 and inline_html_nodes[0].tag == 'a':
+            converted_block = inline_html_nodes[0]
+        # Edge Case: The who block consists only of an image
+        elif len(inline_html_nodes) == 1 and inline_html_nodes[0].tag == 'img':
+            converted_block = inline_html_nodes[0]
+        else:
+            converted_block = ParentNode(html_tag, inline_html_nodes)
         #print(f"\nConverted HTML Node: {converted_block}")
         blocks.append(converted_block)
 
-    #print(f"Converted Blocks: {blocks}")
+    #print(f"\nConverted Blocks: {blocks}")
 
+    # Edge Case: entire markdown is just a link block
+    #if blocks[0].children[0].tag == 'a':
+    #    html_parent_node = ParentNode('div', children=[blocks[0].children[0]]+blocks[1:])
+    #else:
     html_parent_node = ParentNode('div', children=blocks)
 
     #print(f"\nHTML: {html_parent_node}")
