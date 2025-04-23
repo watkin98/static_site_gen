@@ -1,11 +1,13 @@
 import shutil
 import os
+import traceback
 
 def main():
     try:
         static_to_public_transfer()
     except Exception as e:
         print(f"Did not work, clearing public directory. \nException: {e}")
+        traceback.print_exc()
         shutil.rmtree("../public/")
         os.mkdir("../public")
 
@@ -16,8 +18,9 @@ def static_to_public_transfer():
 
     # Transfer the files
     print()
-    file_tranferer("../static")
+    file_transferer("../static")
 
+'''
 def file_tranferer(fpath):
     print(f"Current File Path: {fpath}")
     # Get list of existing files and directories 
@@ -25,8 +28,9 @@ def file_tranferer(fpath):
     print(f"3 {a_file}")
 
     if not a_file:
-        print(f"Item: {fpath}")
-        shutil.copy(f"{fpath}/{item}", "../public")
+        #print(f"Item: {fpath}\nPath: {fpath}/{item}")
+        os.mkdir(f"../public/{fpath}")
+        shutil.copy(f"{fpath}", "../public")
     else:
         print(f"{fpath}\nCwd: {os.getcwd()}")
         entries = os.listdir(path=fpath)
@@ -38,6 +42,19 @@ def file_tranferer(fpath):
             shutil.copy(f"{fpath}/{item}", "../public")
         else:
             file_tranferer(item)
+'''
+def file_transferer(fpath):
+    directory_entires = os.listdir(path=fpath)
+    print(f'{directory_entires}')
+    
+    for item in directory_entires:
+        working_dir = f"../static/{item}"
+        print(f"Dir: {working_dir}")
+        a_file = os.path.isfile(working_dir)
+        print(f"Item {item} is a file: {a_file}\nCwd: {working_dir}")
+        if a_file:
+            pass
+            # Copy the file to public
 
 def file_determiner(fpath):
     '''
