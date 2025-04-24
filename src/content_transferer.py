@@ -2,6 +2,8 @@ import shutil
 import os
 import traceback
 
+# Testing stuff
+'''
 def main():
     try:
         static_to_public_transfer()
@@ -10,6 +12,7 @@ def main():
         traceback.print_exc()
         shutil.rmtree("../public/")
         os.mkdir("../public")
+        '''
 
 def static_to_public_transfer():
     # Delete files and directories existing in public and create new public directory
@@ -62,4 +65,4 @@ def file_copier(fpath, file):
         os.mkdir(f"public/{sub_path_new}")
         shutil.copy(f"{fpath}", f"public/{sub_path_new}")
 
-main()
+#main()
