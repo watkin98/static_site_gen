@@ -8,8 +8,8 @@ def main():
     except Exception as e:
         print(f"Did not work, clearing public directory. \nException: {e}")
         traceback.print_exc()
-        shutil.rmtree("../public/")
-        os.mkdir("../public")
+        #shutil.rmtree("../public/")
+        #os.mkdir("../public")
 
 def static_to_public_transfer():
     # Delete files and directories existing in public and create new public directory
@@ -44,31 +44,29 @@ def file_tranferer(fpath):
             file_tranferer(item)
 '''
 def file_transferer(fpath):
-    directory_entires = os.listdir(path=fpath)
-    print(f'{directory_entires}')
+    a_file = os.path.isfile(fpath)
+    print(f"Current fpath: {fpath}")
+
+    if not a_file:
+        directory_entires = os.listdir(path=fpath)
+        print(f'{directory_entires}')
+
+    temp_dir = fpath
     
     for item in directory_entires:
-        working_dir = f"../static/{item}"
+        working_dir = f"{temp_dir}/{item}"
         print(f"Dir: {working_dir}")
         a_file = os.path.isfile(working_dir)
         print(f"Item {item} is a file: {a_file}\nCwd: {working_dir}")
         if a_file:
-            pass
-            # Copy the file to public
+            file_copier(working_dir, item)
+        else:
+            os.mkdir(f"../public/{item}")
+            print(f"Recursive Dir: {working_dir}\nfpath: {fpath}")
+            file_transferer(working_dir)
 
-def file_determiner(fpath):
-    '''
-    Takes in a string that represents either a directory or a file. Return True if a file,
-    false if a Directory
-    '''
-    dot_count = 0
-    for char in fpath:
-        if char == '.':
-            dot_count += 1
-    
-    if dot_count == 1:
-        return True
-    
-    return False
+def file_copier(fpath, file):
+    print(f"Path: {fpath}\nFile: {file}")
+    shutil.copy(f"{fpath}", "../public")
 
 main()
