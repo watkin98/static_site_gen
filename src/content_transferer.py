@@ -15,6 +15,11 @@ def main():
         '''
 
 def static_to_public_transfer():
+    '''
+    Initiates the transfer of items in static directory to public. Requires that the 
+    function is called while program is executed from project root (static_site_gen), ideally
+    accomplished with a script.
+    '''
     # Delete files and directories existing in public and create new public directory
     shutil.rmtree("public/")
     os.mkdir("public/")
@@ -24,6 +29,10 @@ def static_to_public_transfer():
     file_transferer("static/")
 
 def file_transferer(fpath):
+    '''
+    Takes in the relative directory path "static/" and undergoes the tasks to transfer the files to 
+    "public/".
+    '''
     a_file = os.path.isfile(fpath)
     #print(f"Current fpath: {fpath}")
 
@@ -47,9 +56,15 @@ def file_transferer(fpath):
             file_transferer(working_dir)
 
 def file_copier(fpath, file):
+    '''
+    Takes in a relative file path and file (or directory) name and makes a copy to the public directory.
+    '''
+
+    # Remove the 'static/' from the string path
     sub_path = fpath[6:]
     sub_path_new = ""
 
+    # If the fpath leads to a file, extract the string of the path preceeding it.
     if '.' in sub_path:
         #print("1")
         sub_path_new = sub_path.replace(file, '')
@@ -57,6 +72,8 @@ def file_copier(fpath, file):
 
     #print(f"Path: {fpath}\nSub Path: {sub_path}\nFile: {file}")
 
+    # If a directory, make a copy to the public directory. If the directory already exists, copy the
+    # file to it. If neither are true, subdirectory does not exist. Make it and copy the file to it.
     if sub_path_new == "":
         shutil.copy(f"{fpath}", "public/")
     elif os.path.exists(f"public/{sub_path_new}"):
