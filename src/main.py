@@ -7,5 +7,6 @@ def main():
     #print(string)
 
     static_to_public_transfer()
+    print(f"Hello from my new work PC!")
 
 main()
