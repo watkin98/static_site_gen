@@ -1,5 +1,5 @@
 import unittest
-from src.block_handlers import *
+from src_test.block_handlers import *
 
 class TestBlockTypeIdentifier(unittest.TestCase):
     def test_markdown_header(self):

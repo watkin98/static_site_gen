@@ -1,7 +1,7 @@
-from block_handlers import *
-from parentnode import *
-from text_to_textnode_converter import *
-from node_converter import *
+from src.block_handlers import *
+from src.parentnode import *
+from src.text_to_textnode_converter import *
+from src.node_converter import *
 
 import re
 

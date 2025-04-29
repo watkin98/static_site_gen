@@ -1,5 +1,4 @@
-'''from src.htmlnode import HTMLNode'''
-from htmlnode import *
+from src.htmlnode import HTMLNode
 
 class LeafNode(HTMLNode):
     '''

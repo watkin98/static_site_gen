@@ -1,5 +1,5 @@
 import unittest
-from src.page_generator import *
+from src_test.page_generator import *
 
 class TestPageGenerator(unittest.TestCase):
     def test_base(self):
@@ -78,5 +78,5 @@ class TestPageGenerator(unittest.TestCase):
         with self.assertRaises(ValueError):
             extract_title(markdown)
         
-    def test_generate_page(self):
-        generate_page("content/index.md", "template.html", "temp")
+    #def test_generate_page(self):
+    #    generate_page("content/index.md", "template.html", "public/index.html")

@@ -1,6 +1,5 @@
-from textnode import *
-from node_splitter import *
-
+from src.textnode import *
+from src.node_splitter import *
 
 def text_to_textnodes(text):
     '''

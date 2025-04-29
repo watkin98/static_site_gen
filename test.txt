@@ -1,0 +1,1 @@
+Generating page from content/index.md to public/index.html using template.html

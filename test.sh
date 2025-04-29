@@ -1,2 +1,2 @@
 #python3 -m unittest discover -v -s tests
-python3 -m unittest -v tests/test_page_generator.py
+python3 -m unittest -v tests/test_delimiter.py
