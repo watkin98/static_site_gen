@@ -1,6 +1,9 @@
 #from textnode import *
-from content_transferer import *
-from page_generator import *
+from content_transferer import static_to_public_transfer
+from page_generator import generate_page
+
+import os
+import shutil
 
 def main():
 
