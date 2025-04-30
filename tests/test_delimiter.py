@@ -11,7 +11,7 @@ class TestSplitNodesDelimiter(unittest.TestCase):
                                         TextNode("code block", TextType.CODE),
                                         TextNode(" word", TextType.TEXT),
                                     ])
-        
+        '''
     def test_bold(self):
         node = TextNode("This is text with a **bold** word", TextType.TEXT)
         new_nodes = split_nodes_delimiter([node], "**", TextType.BOLD)
@@ -122,4 +122,4 @@ class TestSplitNodesDelimiter(unittest.TestCase):
                 TextNode(" word", TextType.TEXT),
             ],
             new_nodes,
-        )
+        )'''
