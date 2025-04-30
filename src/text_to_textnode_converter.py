@@ -1,5 +1,5 @@
-from textnode import TextNode
-from textnode import TextType
+from src.textnode import TextNode
+from src.textnode import TextType
 from node_splitter import split_nodes_delimiter
 from node_splitter import split_nodes_image
 from node_splitter import split_nodes_link

@@ -1,5 +1,5 @@
 '''from src.htmlnode import *'''
-from htmlnode import HTMLNode
+from src.htmlnode import HTMLNode
 
 class ParentNode(HTMLNode):
     '''
