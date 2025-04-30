@@ -10,19 +10,19 @@ def split_nodes_delimiter(old_nodes, delimiter, text_type):
     new_nodes = []
 
     for node in old_nodes:
-        print()
+        '''print()
         print(node)
         print(type(TextType.TEXT))
         print(type(node.text_type))
         print(TextType.TEXT)
-        print(node.text_type)
-        print(node.text_type != TextType.TEXT)
-        if node.text_type != TextType.TEXT:
-            print(1)
+        print(node.text_type)'''
+        #print(node.text_type is not TextType.TEXT)
+        if node.text_type is not TextType.TEXT:
+            #print(1)
             new_nodes.append(node)
             continue
 
-        print(2)
+        #print(2)
         
         split_text = node.text.split(delimiter)
 

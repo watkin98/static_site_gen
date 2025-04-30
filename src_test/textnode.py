@@ -1,6 +1,14 @@
 from enum import Enum
 
-TextType = Enum('TextType', ['TEXT', 'BOLD', 'ITALIC', 'CODE', 'LINK', 'IMAGE'])
+#TextType = Enum('TextType', ['TEXT', 'BOLD', 'ITALIC', 'CODE', 'LINK', 'IMAGE'])
+
+class TextType(Enum):
+    TEXT = "TEXT"
+    BOLD = "BOLD"
+    ITALIC = "ITALIC"
+    CODE = "CODE"
+    LINK = "LINK"
+    IMAGE = "IMAGE"
 '''
 Type identifier for a TextNode (ex. 'TEXT', 'BOLD', 'IMAGE')
 '''

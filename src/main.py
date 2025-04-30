@@ -1,12 +1,9 @@
-from textnode import *
+#from textnode import *
 from content_transferer import *
 from page_generator import *
 
 def main():
-    obj = TextNode("This is a test", TextType.BOLD, "https://www.boot.dev")
-    string = obj.__repr__
-    #print(string)
-    
+
     # Delete files and directories existing in public and create new public directory
     shutil.rmtree("public/")
     os.mkdir("public/")
