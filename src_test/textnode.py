@@ -9,6 +9,7 @@ class TextType(Enum):
     CODE = "CODE"
     LINK = "LINK"
     IMAGE = "IMAGE"
+
 '''
 Type identifier for a TextNode (ex. 'TEXT', 'BOLD', 'IMAGE')
 '''

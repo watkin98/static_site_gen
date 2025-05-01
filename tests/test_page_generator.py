@@ -1,5 +1,5 @@
 import unittest
-from src.page_generator import *
+from src_test.page_generator import *
 
 class TestPageGenerator(unittest.TestCase):
     def test_base(self):

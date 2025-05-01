@@ -1,5 +1,5 @@
 import unittest
-from src.html_handlers import *
+from src_test.html_handlers import *
 
 class TestMdToHTMLNodeConverter(unittest.TestCase):
     def test_html_paragraphs(self):

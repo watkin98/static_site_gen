@@ -1,5 +1,5 @@
 import unittest
-from src.md_links_extractor import *
+from src_test.md_links_extractor import *
 
 class TestExtractor(unittest.TestCase):
 
