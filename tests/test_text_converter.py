@@ -1,5 +1,7 @@
 import unittest
-from src.text_to_textnode_converter import *
+from src.text_to_textnode_converter import text_to_textnodes
+from src.textnode import TextType
+from src.textnode import TextNode
 
 class TextToTextNodeTests(unittest.TestCase):
     def test_boot_dev(self):

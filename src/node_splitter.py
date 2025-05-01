@@ -1,7 +1,7 @@
-from textnode import TextType
-from textnode import TextNode
-from md_links_extractor import extract_markdown_images
-from md_links_extractor import extract_markdown_links
+from src.textnode import TextType
+from src.textnode import TextNode
+from src.md_links_extractor import extract_markdown_images
+from src.md_links_extractor import extract_markdown_links
 
 def split_nodes_delimiter(old_nodes, delimiter, text_type):
     '''

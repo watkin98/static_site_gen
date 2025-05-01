@@ -2,10 +2,10 @@ from src.block_handlers import markdown_to_blocks
 from src.block_handlers import block_to_block_type
 from src.parentnode import ParentNode
 from src.text_to_textnode_converter import text_to_textnodes
-from node_converter import text_node_to_html_node
-from textnode import TextType
-from textnode import TextNode
-from leafnode import LeafNode
+from src.node_converter import text_node_to_html_node
+from src.textnode import TextType
+from src.textnode import TextNode
+from src.leafnode import LeafNode
 
 import re
 
