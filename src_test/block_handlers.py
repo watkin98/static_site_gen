@@ -1,7 +1,15 @@
 from enum import Enum
 import math
 
-BlockType = Enum('BlockType', ['paragraph', 'heading', 'code', 'quote', 'unordered_list', 'ordered_list'])
+#BlockType = Enum('BlockType', ['paragraph', 'heading', 'code', 'quote', 'unordered_list', 'ordered_list'])
+
+class BlockType(Enum):
+    paragraph = 'paragraph'
+    heading = 'heading'
+    code = 'code'
+    quote = 'quote'
+    unordered_list = 'unordered_list'
+    ordered_list = 'ordered_list'
 
 def markdown_to_blocks(markdown):
     '''

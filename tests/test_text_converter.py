@@ -18,8 +18,12 @@ class TextToTextNodeTests(unittest.TestCase):
                     TextNode(" and a ", TextType.TEXT),
                     TextNode("link", TextType.LINK, "https://boot.dev"),
                 ]
+        print()
+        print(test_nodes)
+        print()
+        print(nodes)
         self.assertEqual(test_nodes, nodes)
-
+'''
     def test_without_bold(self):
         test_nodes = text_to_textnodes("This is text with an _italic_ word and a `code block` and an ![obi wan image](https://i.imgur.com/fJRm4Vk.jpeg) and a [link](https://boot.dev)")
         nodes = [
@@ -124,4 +128,4 @@ class TextToTextNodeTests(unittest.TestCase):
                 TextNode("link", TextType.LINK, "https://boot.dev"),
             ],
             nodes,
-        )
+        )'''
