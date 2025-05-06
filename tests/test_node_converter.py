@@ -1,6 +1,6 @@
 import unittest
-from src_test.textnode import *
-from src_test.node_converter import *
+from src.textnode import *
+from src.node_converter import *
 
 class TestNodeConverter(unittest.TestCase):
     def test_text_node(self):
