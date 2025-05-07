@@ -51,6 +51,9 @@ def markdown_to_html_node(markdown):
             # Remove '> '
             inline_html_nodes[0].value = inline_html_nodes[0].value[2:]
         elif html_tag == 'ul':
+            print("In UL logic")
+            print(f"Current nodes: {inline_html_nodes}")
+            print(f"Outgoing: {inline_html_nodes[0].value}")
             inline_html_nodes = ul_text_list_to_html_nodes(inline_html_nodes[0].value)
         elif html_tag == 'ol':
             inline_html_nodes = ol_text_list_to_html_nodes(inline_html_nodes[0].value)
