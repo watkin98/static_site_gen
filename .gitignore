@@ -1,3 +1,4 @@
 .vscode/
 public/*
 !public/.gitkeep
+__pycache__/
