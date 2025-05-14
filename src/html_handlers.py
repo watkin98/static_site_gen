@@ -51,10 +51,11 @@ def markdown_to_html_node(markdown):
             # Remove '> '
             inline_html_nodes[0].value = inline_html_nodes[0].value[2:]
         elif html_tag == 'ul':
-            print("In UL logic")
-            print(f"Current nodes: {inline_html_nodes}")
-            print(f"Outgoing: {inline_html_nodes[0].value}")
-            inline_html_nodes = ul_text_list_to_html_nodes(inline_html_nodes[0].value)
+            #print("In UL logic")
+            #print(f"Current nodes: {inline_html_nodes}")
+            #print(f"Outgoing: {inline_html_nodes[0].value}")
+            inline_html_nodes = ul_text_list_to_html_nodes(inline_html_nodes)
+            #inline_html_nodes = ul_text_list_to_html_nodes(inline_html_nodes[0].value)
         elif html_tag == 'ol':
             inline_html_nodes = ol_text_list_to_html_nodes(inline_html_nodes[0].value)
 
@@ -147,12 +148,13 @@ def get_heading_number(header):
     num_of_header_hashes = header_syntax[header_substring]
 
     return f'h{num_of_header_hashes}'
-
+'''
 def ul_text_list_to_html_nodes(lst):
-    '''
-    Takes in a string that is supposed to be an unordered list block and returns a list (python)
+    ''
+    OLD: Takes in a string that is supposed to be an unordered list block and returns a list (python)
     of HTML nodes
-    '''
+    ''
+    print(f"Incoming ul: {lst}")
     html_nodes = []
     items_in_UL_list = lst.split('- ')
     items_in_UL_list = list(map(lambda x: x.strip(), items_in_UL_list[1:]))
@@ -161,6 +163,26 @@ def ul_text_list_to_html_nodes(lst):
         html_nodes.append(node)
 
     return html_nodes
+'''
+def ul_text_list_to_html_nodes(lst):
+    '''
+    Takes in a list of nodes that represent an unordered list block and its inline elements and returns
+    a list of HTML nodes
+    '''
+    print(f"Incoming ul: {lst}")
+    html_nodes = []
+    for item in lst:
+        if item.tag == None:
+            print(f"Item: {item}")
+            print("Tag is None!")
+        else:
+            print(f"Item: {item}")
+            print("Tag is not None!")
+        #node = LeafNode('li', item)
+        #html_nodes.append(node)
+    
+    raise ValueError("Not done yet!")
+    #return html_nodes
 
 def ol_text_list_to_html_nodes(lst):
     '''
