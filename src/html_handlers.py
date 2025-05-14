@@ -22,7 +22,7 @@ def markdown_to_html_node(markdown):
 
     for block in md_blocks:
         blocktype = block_to_block_type(block)
-        #print(f"Block: {block}\nType: {blocktype}")
+        print(f"Block: \n{block}\nType: {blocktype}")
 
         # If block is anything except code, remove newline characters
         # If code, call helper function
@@ -54,7 +54,7 @@ def markdown_to_html_node(markdown):
             #print("In UL logic")
             #print(f"Current nodes: {inline_html_nodes}")
             #print(f"Outgoing: {inline_html_nodes[0].value}")
-            inline_html_nodes = ul_text_list_to_html_nodes(inline_html_nodes)
+            inline_html_nodes = ul_text_list_to_html_nodes(block)
             #inline_html_nodes = ul_text_list_to_html_nodes(inline_html_nodes[0].value)
         elif html_tag == 'ol':
             inline_html_nodes = ol_text_list_to_html_nodes(inline_html_nodes[0].value)
