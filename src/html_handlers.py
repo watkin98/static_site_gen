@@ -6,6 +6,7 @@ from node_converter import text_node_to_html_node
 from textnode import TextType
 from textnode import TextNode
 from leafnode import LeafNode
+from htmlnode import HTMLNode
 
 import re
 
@@ -148,27 +149,62 @@ def get_heading_number(header):
     num_of_header_hashes = header_syntax[header_substring]
 
     return f'h{num_of_header_hashes}'
-'''
+
 def ul_text_list_to_html_nodes(lst):
-    ''
+    '''
     OLD: Takes in a string that is supposed to be an unordered list block and returns a list (python)
     of HTML nodes
-    ''
+    '''
     print(f"Incoming ul: {lst}")
+    textnode_nodes = []
     html_nodes = []
-    items_in_UL_list = lst.split('- ')
+    items_in_UL_list = lst.split('- ')[1:]
+    print(f"List of UL: {items_in_UL_list}")
+    for item in items_in_UL_list:
+        textnode = text_to_textnodes(item)
+        textnode_nodes.append(textnode)
+
+    print(f"Textnodes: {textnode_nodes}")
+
+    list_item_holder = []
+    for list_item in textnode_nodes:
+        for item in list_item:
+            htmlnode = text_node_to_html_node(item)
+            list_item_holder.append(htmlnode)
+        html_nodes.append(list_item_holder)
+        list_item_holder = []
+
+    print(f"HTML Nodes: {html_nodes}")
+
+    listnodes = []
+    for item in html_nodes:
+        if len(item) == 1:
+            node = LeafNode('li', item[0].value)
+            listnodes.append(node)
+        else:
+            for node in item:
+                if node.tag == None:
+                    node = HTMLNode('li', node.value)
+                    listnodes.append(node)
+                else:
+                    node = LeafNode(node.tag, node.value)
+                    listnodes[len(listnodes) - 1].children = node
+
+    print(f"Final Nodes: {listnodes}")
+    '''
     items_in_UL_list = list(map(lambda x: x.strip(), items_in_UL_list[1:]))
     for item in items_in_UL_list:
         node = LeafNode('li', item)
         html_nodes.append(node)
-
-    return html_nodes
+    '''
+    raise ValueError("Not done yet!")
+    #return html_nodes
 '''
 def ul_text_list_to_html_nodes(lst):
-    '''
+    ''
     Takes in a list of nodes that represent an unordered list block and its inline elements and returns
     a list of HTML nodes
-    '''
+    ''
     print(f"Incoming ul: {lst}")
     html_nodes = []
     for item in lst:
@@ -183,7 +219,7 @@ def ul_text_list_to_html_nodes(lst):
     
     raise ValueError("Not done yet!")
     #return html_nodes
-
+'''
 def ol_text_list_to_html_nodes(lst):
     '''
     Takes in a string that is supposed to be an ordered list block and returns a list (python)
