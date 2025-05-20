@@ -180,17 +180,32 @@ def ul_text_list_to_html_nodes(lst):
     for item in html_nodes:
         if len(item) == 1:
             node = LeafNode('li', item[0].value)
-            listnodes.append(node)
+            listnodes.append([node])
         else:
+            node_holder = []
             for node in item:
+                print(f"Node: {node}")
                 if node.tag == None:
                     node = HTMLNode('li', node.value)
-                    listnodes.append(node)
+                    node_holder.append([node])
                 else:
                     node = LeafNode(node.tag, node.value)
-                    listnodes[len(listnodes) - 1].children = node
+                    node_holder[len(node_holder) - 1][0].children = [node]
+            listnodes.append(node_holder)
 
     print(f"Final Nodes: {listnodes}")
+
+    final_list = []
+    for item in listnodes:
+        if len(item) == 1:
+            final_list.append(item[0])
+        else:
+            print(item)
+            for node in item:
+                if item[0][0].children != None:
+                    node[0].children.append(item)
+
+    print(f"Final List: {final_list}")
     '''
     items_in_UL_list = list(map(lambda x: x.strip(), items_in_UL_list[1:]))
     for item in items_in_UL_list:
