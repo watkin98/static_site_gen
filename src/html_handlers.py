@@ -23,7 +23,7 @@ def markdown_to_html_node(markdown):
 
     for block in md_blocks:
         blocktype = block_to_block_type(block)
-        print(f"Block: \n{block}\nType: {blocktype}")
+        #print(f"Block: \n{block}\nType: {blocktype}")
 
         # If block is anything except code, remove newline characters
         # If code, call helper function
@@ -155,16 +155,16 @@ def ul_text_list_to_html_nodes(lst):
     OLD: Takes in a string that is supposed to be an unordered list block and returns a list (python)
     of HTML nodes
     '''
-    print(f"Incoming ul: {lst}")
+    #print(f"Incoming ul: {lst}\n")
     textnode_nodes = []
     html_nodes = []
     items_in_UL_list = lst.split('- ')[1:]
-    print(f"List of UL: {items_in_UL_list}")
+    #print(f"List of UL: {items_in_UL_list}\n")
     for item in items_in_UL_list:
         textnode = text_to_textnodes(item)
         textnode_nodes.append(textnode)
 
-    print(f"Textnodes: {textnode_nodes}")
+    #print(f"Textnodes: {textnode_nodes}\n")
 
     list_item_holder = []
     for list_item in textnode_nodes:
@@ -174,46 +174,42 @@ def ul_text_list_to_html_nodes(lst):
         html_nodes.append(list_item_holder)
         list_item_holder = []
 
-    print(f"HTML Nodes: {html_nodes}")
+    print(f"HTML Nodes: {html_nodes}\n")
 
     listnodes = []
     for item in html_nodes:
         if len(item) == 1:
             node = LeafNode('li', item[0].value)
-            listnodes.append([node])
+            listnodes.append(node)
         else:
             node_holder = []
+            empty_children = True
             for node in item:
                 print(f"Node: {node}")
-                if node.tag == None:
-                    node = HTMLNode('li', node.value)
-                    node_holder.append([node])
+                if node.tag == None and empty_children:
+                    node = ParentNode(tag='li', value=node.value)
+                    node_holder.extend([node])
+                    empty_children = False
+                    print(node_holder)
+                elif node.tag == None:
+                    node = LeafNode(None, node.value)
+                    if node_holder[0].children == None:
+                        node_holder[0].children = [node]
+                    else:
+                        node_holder[0].children.append(node)
                 else:
                     node = LeafNode(node.tag, node.value)
-                    node_holder[len(node_holder) - 1][0].children = [node]
-            listnodes.append(node_holder)
+                    if node_holder[0].children == None:
+                        node_holder[0].children = [node]
+                    else:
+                        print(node_holder[0].children)
+                        node_holder[0].children.append(node)
+            print(f"Node Holder: {node_holder}")
+            listnodes.extend(node_holder)
 
-    print(f"Final Nodes: {listnodes}")
-
-    final_list = []
-    for item in listnodes:
-        if len(item) == 1:
-            final_list.append(item[0])
-        else:
-            print(item)
-            for node in item:
-                if item[0][0].children != None:
-                    node[0].children.append(item)
-
-    print(f"Final List: {final_list}")
-    '''
-    items_in_UL_list = list(map(lambda x: x.strip(), items_in_UL_list[1:]))
-    for item in items_in_UL_list:
-        node = LeafNode('li', item)
-        html_nodes.append(node)
-    '''
-    raise ValueError("Not done yet!")
-    #return html_nodes
+    print(f"Final Nodes: {listnodes}\n")
+    #raise ValueError("Not done yet!")
+    return listnodes
 '''
 def ul_text_list_to_html_nodes(lst):
     ''
