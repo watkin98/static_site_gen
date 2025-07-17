@@ -2,7 +2,7 @@ import unittest
 from src.html_handlers import *
 
 class TestMdToHTMLNodeConverter(unittest.TestCase):
-    '''
+    
     def test_html_paragraphs(self):
         md = """
 This is **bolded** paragraph
@@ -411,9 +411,9 @@ this is paragraph text
 
         node = markdown_to_html_node(md)
         html = node.to_html()
-        print()
-        print(f"Genr: {html}")
-        print(f"Test: <div><ul><li>This is a list</li><li>with items</li><li>and <i>more</i> items</li></ul><ol><li>This is an <code>ordered</code> list</li><li>with items</li><li>and more items</li></ol></div>")
+        #print()
+        #print(f"Genr: {html}")
+        #print(f"Test: <div><ul><li>This is a list</li><li>with items</li><li>and <i>more</i> items</li></ul><ol><li>This is an <code>ordered</code> list</li><li>with items</li><li>and more items</li></ol></div>")
         self.assertEqual(
             html,
             "<div><ul><li>This is a list</li><li>with items</li><li>and <i>more</i> items</li></ul><ol><li>This is an <code>ordered</code> list</li><li>with items</li><li>and more items</li></ol></div>",
@@ -434,7 +434,7 @@ this is paragraph text
             html,
             "<div><ul><li>This is a list</li><li>with items</li><li>and <i>more</i> items</li></ul></div>",
         )
-'''
+
     def test_unordered_lists_1(self):
         md = """
 - This **is** a list
@@ -467,7 +467,7 @@ this is paragraph text
             "<div><ol><li>Item 1</li><li>Item 2</li><li>Item 3</li></ol></div>",
         )
 
-'''    def test_ordered_lists_1(self):
+    def test_ordered_lists_1(self):
         md = """
 1. This is an `ordered` list
 2. with items
@@ -481,4 +481,4 @@ this is paragraph text
         self.assertEqual(
             html,
             "<div><ol><li>This is an <code>ordered</code> list</li><li>with items</li><li>and more items</li></ol></div>",
-        )'''
+        )
