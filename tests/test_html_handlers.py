@@ -131,22 +131,6 @@ This is another paragraph with _italic_ text and `code` here
             "<div><p>This is <b>bolded</b> paragraph text in a p tag here</p><p>This is another paragraph with <i>italic</i> text and <code>code</code> here</p><blockquote>This is a quote</blockquote></div>",
         )
 
-    def test_unordered_lists(self):
-        md = """
-- Item 1
-- Item 2
-- Item 3    
-
-"""
-
-        node = markdown_to_html_node(md)
-        html = node.to_html()
-        #print(f"\nHTML: {html}")
-        self.assertEqual(
-            html,
-            "<div><ul><li>Item 1</li><li>Item 2</li><li>Item 3</li></ul></div>",
-        )
-
     def test_unordered_lists_extended(self):
         md = """
 - Item 1
@@ -428,7 +412,7 @@ this is paragraph text
             html,
             "<div><blockquote>This is a blockquote block</blockquote><p>this is paragraph text</p></div>",
         )
-'''
+
     def test_lists(self):
         md = """
 - This is a list
@@ -449,4 +433,20 @@ this is paragraph text
         self.assertEqual(
             html,
             "<div><ul><li>This is a list</li><li>with items</li><li>and <i>more</i> items</li></ul><ol><li>This is an <code>ordered</code> list</li><li>with items</li><li>and more items</li></ol></div>",
+        )
+'''
+    def test_unordered_lists_1(self):
+        md = """
+- This is a list
+- with items
+- and _more_ items  
+
+"""
+
+        node = markdown_to_html_node(md)
+        html = node.to_html()
+        #print(f"\nHTML: {html}")
+        self.assertEqual(
+            html,
+            "<div><ul><li>This is a list</li><li>with items</li><li>and <i>more</i> items</li></ul></div>",
         )

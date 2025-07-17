@@ -28,7 +28,7 @@ def markdown_to_html_node(markdown):
         # If block is anything except code, remove newline characters
         # If code, call helper function
         if blocktype.name != 'code':
-            block = block.replace('\n', ' ')
+            block = block.replace('\n', '')
         else:
             code_node = code_block_handler(block)
             blocks.append(code_node)
@@ -182,12 +182,16 @@ def ul_text_list_to_html_nodes(lst):
             node = LeafNode('li', item[0].value)
             listnodes.append(node)
         else:
-            node_holder = []
-            empty_children = True
+            #node_holder = []
+            ulListParentNodeWithMdElements = ParentNode(tag='li', children=[])
+            #empty_children = True
             for node in item:
                 print(f"Node: {node}")
+                leafnode = LeafNode(node.tag, value=node.value)
+                ulListParentNodeWithMdElements.children.append(leafnode)
+                '''
                 if node.tag == None and empty_children:
-                    node = ParentNode(tag='li', value=node.value)
+                    node = ParentNode(tag='li', children=[]) 
                     node_holder.extend([node])
                     empty_children = False
                     print(node_holder)
@@ -204,8 +208,9 @@ def ul_text_list_to_html_nodes(lst):
                     else:
                         print(node_holder[0].children)
                         node_holder[0].children.append(node)
-            print(f"Node Holder: {node_holder}")
-            listnodes.extend(node_holder)
+                '''
+            #print(f"Node Holder: {node_holder}")
+            listnodes.append(ulListParentNodeWithMdElements)
 
     print(f"Final Nodes: {listnodes}\n")
     #raise ValueError("Not done yet!")
