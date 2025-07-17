@@ -43,7 +43,7 @@ def markdown_to_html_node(markdown):
         html_tag = block_type_to_html_tag(blocktype)
         #print(f"Tag: {html_tag}")
 
-        # Handle heading, unordered lists, and ordered lists
+        # Handle heading, blockquotes, unordered lists, and ordered lists
         if html_tag == 'h':
             # Determine how many #'s to remove from value
             html_tag = get_heading_number(blockWithNewLinesRemoved)
@@ -51,7 +51,9 @@ def markdown_to_html_node(markdown):
             inline_html_nodes[0].value = inline_html_nodes[0].value[heading_num+1:] 
         elif html_tag == 'blockquote':
             # Remove '> '
-            inline_html_nodes[0].value = inline_html_nodes[0].value[2:]
+            #print(f"\nOld BlockQuote: {inline_html_nodes[0].value}")
+            inline_html_nodes[0].value = inline_html_nodes[0].value.replace('> ', '')
+            #print(f"New BlockQuote: {inline_html_nodes[0].value}")
         elif html_tag == 'ul':
             #print("In UL logic")
             #print(f"Current nodes: {inline_html_nodes}")
