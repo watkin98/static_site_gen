@@ -153,22 +153,6 @@ This is another paragraph with _italic_ text and `code` here
             "<div><ul><li>Item 1</li><li>Item 2</li><li>Item 3</li></ul><p>This is <b>bolded</b> paragraph text in a p tag here</p><p>This is another paragraph with <i>italic</i> text and <code>code</code> here</p></div>",
         )
 
-    def test_ordered_lists(self):
-        md = """
-1. Item 1
-2. Item 2
-3. Item 3
-
-"""
-
-        node = markdown_to_html_node(md)
-        html = node.to_html()
-        #print(f"\nHTML: {html}")
-        self.assertEqual(
-            html,
-            "<div><ol><li>Item 1</li><li>Item 2</li><li>Item 3</li></ol></div>",
-        )
-
     def test_ordered_lists_extended(self):
         md = """
 1. Item 1
@@ -434,7 +418,7 @@ this is paragraph text
             html,
             "<div><ul><li>This is a list</li><li>with items</li><li>and <i>more</i> items</li></ul><ol><li>This is an <code>ordered</code> list</li><li>with items</li><li>and more items</li></ol></div>",
         )
-'''
+
     def test_unordered_lists_1(self):
         md = """
 - This is a list
@@ -450,3 +434,51 @@ this is paragraph text
             html,
             "<div><ul><li>This is a list</li><li>with items</li><li>and <i>more</i> items</li></ul></div>",
         )
+'''
+    def test_unordered_lists_1(self):
+        md = """
+- This **is** a list
+- with `items`
+- and _more_ items  
+
+"""
+
+        node = markdown_to_html_node(md)
+        html = node.to_html()
+        #print(f"\nHTML: {html}")
+        self.assertEqual(
+            html,
+            "<div><ul><li>This <b>is</b> a list</li><li>with <code>items</code></li><li>and <i>more</i> items</li></ul></div>",
+        )
+
+    def test_ordered_lists(self):
+        md = """
+1. Item 1
+2. Item 2
+3. Item 3
+
+"""
+
+        node = markdown_to_html_node(md)
+        html = node.to_html()
+        #print(f"\nHTML: {html}")
+        self.assertEqual(
+            html,
+            "<div><ol><li>Item 1</li><li>Item 2</li><li>Item 3</li></ol></div>",
+        )
+
+'''    def test_ordered_lists_1(self):
+        md = """
+1. This is an `ordered` list
+2. with items
+3. and more items
+
+"""
+
+        node = markdown_to_html_node(md)
+        html = node.to_html()
+        #print(f"\nHTML: {html}")
+        self.assertEqual(
+            html,
+            "<div><ol><li>This is an <code>ordered</code> list</li><li>with items</li><li>and more items</li></ol></div>",
+        )'''

@@ -27,6 +27,7 @@ def markdown_to_html_node(markdown):
 
         # If block is anything except code, remove newline characters
         # If code, call helper function
+        print(f"\nBlock before processing:\n {block}")
         if blocktype.name != 'code':
             block = block.replace('\n', '')
         else:
@@ -55,10 +56,12 @@ def markdown_to_html_node(markdown):
             #print("In UL logic")
             #print(f"Current nodes: {inline_html_nodes}")
             #print(f"Outgoing: {inline_html_nodes[0].value}")
+            print(f"\nul Block: {block}")
             inline_html_nodes = ul_text_list_to_html_nodes(block)
             #inline_html_nodes = ul_text_list_to_html_nodes(inline_html_nodes[0].value)
         elif html_tag == 'ol':
-            inline_html_nodes = ol_text_list_to_html_nodes(inline_html_nodes[0].value)
+            print(f"\nBlock: {block}")
+            inline_html_nodes = ol_text_list_to_html_nodes(block)
 
         #print(f"\nInline Nodes: {inline_html_nodes}\nHTML Tag: {html_tag}")
 
@@ -152,7 +155,7 @@ def get_heading_number(header):
 
 def ul_text_list_to_html_nodes(lst):
     '''
-    OLD: Takes in a string that is supposed to be an unordered list block and returns a list (python)
+    Takes in a string that is supposed to be an unordered list block and returns a list (python)
     of HTML nodes
     '''
     #print(f"Incoming ul: {lst}\n")
@@ -174,7 +177,7 @@ def ul_text_list_to_html_nodes(lst):
         html_nodes.append(list_item_holder)
         list_item_holder = []
 
-    print(f"HTML Nodes: {html_nodes}\n")
+    #print(f"HTML Nodes: {html_nodes}\n")
 
     listnodes = []
     for item in html_nodes:
@@ -182,70 +185,29 @@ def ul_text_list_to_html_nodes(lst):
             node = LeafNode('li', item[0].value)
             listnodes.append(node)
         else:
-            #node_holder = []
             ulListParentNodeWithMdElements = ParentNode(tag='li', children=[])
-            #empty_children = True
             for node in item:
-                print(f"Node: {node}")
+                #print(f"Node: {node}")
                 leafnode = LeafNode(node.tag, value=node.value)
                 ulListParentNodeWithMdElements.children.append(leafnode)
-                '''
-                if node.tag == None and empty_children:
-                    node = ParentNode(tag='li', children=[]) 
-                    node_holder.extend([node])
-                    empty_children = False
-                    print(node_holder)
-                elif node.tag == None:
-                    node = LeafNode(None, node.value)
-                    if node_holder[0].children == None:
-                        node_holder[0].children = [node]
-                    else:
-                        node_holder[0].children.append(node)
-                else:
-                    node = LeafNode(node.tag, node.value)
-                    if node_holder[0].children == None:
-                        node_holder[0].children = [node]
-                    else:
-                        print(node_holder[0].children)
-                        node_holder[0].children.append(node)
-                '''
-            #print(f"Node Holder: {node_holder}")
             listnodes.append(ulListParentNodeWithMdElements)
 
-    print(f"Final Nodes: {listnodes}\n")
-    #raise ValueError("Not done yet!")
+    #print(f"Final Nodes: {listnodes}\n")
     return listnodes
-'''
-def ul_text_list_to_html_nodes(lst):
-    ''
-    Takes in a list of nodes that represent an unordered list block and its inline elements and returns
-    a list of HTML nodes
-    ''
-    print(f"Incoming ul: {lst}")
-    html_nodes = []
-    for item in lst:
-        if item.tag == None:
-            print(f"Item: {item}")
-            print("Tag is None!")
-        else:
-            print(f"Item: {item}")
-            print("Tag is not None!")
-        #node = LeafNode('li', item)
-        #html_nodes.append(node)
-    
-    raise ValueError("Not done yet!")
-    #return html_nodes
-'''
+
 def ol_text_list_to_html_nodes(lst):
     '''
     Takes in a string that is supposed to be an ordered list block and returns a list (python)
     of HTML nodes
     '''
     html_nodes = []
-    items_in_OL_list = re.split(r'[0-9]\.', lst)
+    print(f"Incoming List: {lst}")
+    items_in_OL_list = re.split(r"\d+\.", lst)
+    print(f"List: {items_in_OL_list}\n")
     new_list = list(filter(lambda x: x != '', items_in_OL_list))
-
+    print(f"New List: {new_list}")
     newer_list = list(map(lambda x: x.strip(), new_list))
+    print(f"Newer List: {newer_list}\n")
 
     for item in newer_list:
         node = LeafNode('li', item)
