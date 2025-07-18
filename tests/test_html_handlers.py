@@ -498,3 +498,19 @@ this is paragraph text
             html,
             "<div><ul><li><a href=\"/blog/glorfindel\">Why Glorfindel is More Impressive than Legolas</a></li><li><a href=\"/blog/tom\">Why Tom Bombadil Was a Mistake</a></li><li><a href=\"/blog/majesty\">The Unparalleled Majesty of \"The Lord of the Rings\"</a></li></ul></div>",
         )
+
+    def test_list_of_ordered_links(self):
+        md = """
+1. [Why Glorfindel is More Impressive than Legolas](/blog/glorfindel)
+2. [Why Tom Bombadil Was a Mistake](/blog/tom)
+3. [The Unparalleled Majesty of "The Lord of the Rings"](/blog/majesty)
+"""
+
+        node = markdown_to_html_node(md)
+        html = node.to_html()
+        #print(f"Genr: {html}")
+        #print(f"Test: <div><ul><li><a href=\"/blog/glorfindel\">Why Glorfindel is More Impressive than Legolas</a></li><li><a href=\"/blog/tom\">Why Tom Bombadil Was a Mistake</a></li><li><a href=\"/blog/majesty\">The Unparalleled Majesty of \"The Lord of the Rings\"</a></li></ul></div>")
+        self.assertEqual(
+            html,
+            "<div><ol><li><a href=\"/blog/glorfindel\">Why Glorfindel is More Impressive than Legolas</a></li><li><a href=\"/blog/tom\">Why Tom Bombadil Was a Mistake</a></li><li><a href=\"/blog/majesty\">The Unparalleled Majesty of \"The Lord of the Rings\"</a></li></ol></div>",
+        )

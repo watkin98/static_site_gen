@@ -232,14 +232,20 @@ def ol_text_list_to_html_nodes(lst):
 
     final_nodes = []
     for item in html_nodes:
-        if len(item) == 1:
+        if len(item) == 1 and item[0].tag != 'a':
             #print(f"Item: {item}")
             node = LeafNode('li', item[0].value)
             final_nodes.append(node)
         else:
             olListParentNodeWithMdElements = ParentNode(tag='li', children=[])
             for node in item:
-                leafnode = LeafNode(node.tag, value=node.value)
+                #print(f"Node: {node}")
+                if node.tag == 'a':
+                    #print(1)
+                    #print(f"Node: {node}\n Props: {node.props}")
+                    leafnode = LeafNode(node.tag, value=node.value, props=node.props)
+                else:
+                    leafnode = LeafNode(node.tag, value=node.value)
                 olListParentNodeWithMdElements.children.append(leafnode)
             final_nodes.append(olListParentNodeWithMdElements)
     #print(f"Final Nodes: {final_nodes}")
