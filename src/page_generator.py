@@ -19,7 +19,7 @@ def extract_title(markdown):
     else:
         raise ValueError("h1 header not identified from markdown file")
     
-def generate_page(from_path, template_path, dest_path):
+def generate_page(from_path, template_path, dest_path, basepath):
     '''
     Takes in 'from_path', 'template_path', and 'dest_path' strings that represent file paths to generate
     an html page from a markdown file and a template html file.
@@ -42,6 +42,8 @@ def generate_page(from_path, template_path, dest_path):
 
     template_with_title = template_str.replace('{{ Title }}', title_block)
     completed_template = template_with_title.replace('{{ Content }}', html)
+    replace_roots = completed_template.replace('href="/', f'href="{basepath}')
+    completed_template = replace_roots.replace('src="/', f'src="{basepath}')
     
     md_file.close()
     template_file.close()
@@ -56,39 +58,22 @@ def generate_page(from_path, template_path, dest_path):
     #print(html)
     #print(title_block)
 
-def generate_pages_recursive(dir_path_content, template_path, dest_dir_path):
-    #print(f"Content Dir: {dir_path_content}")
-    #print(f"Template Path: {template_path}")
-    #print(f"Destin Dir: {dest_dir_path}")
-
+def generate_pages_recursive(dir_path_content, template_path, dest_dir_path, basepath):
+    '''
+    Generates corresponding subdirectories and html pages given a directory of subdirectories and md pages
+    '''
     paths = os.listdir(dir_path_content)
-    #print(f"Current Paths:{paths}")
 
     for item in paths:
-        #print(f"Item: {item}")
         a_file = os.path.isfile(f"{dir_path_content}/{item}")
+        try:
+            os.mkdir(dest_dir_path)
+        except FileExistsError: 
+            pass
         if a_file:
             # Generate html file and move to public directory
-            #print(1)
-            try:
-                #print(2)
-                os.mkdir(dest_dir_path)
-                #print(2.5)
-                #print(f"Item: {item}")
-                file_with_html_extension = item.replace('.md', '.html')
-                generate_page(f"{dir_path_content}/{item}", template_path, f"{dest_dir_path}/{file_with_html_extension}")
-            except FileExistsError: 
-                #print(3)
-                #print(f"Item: {item}")
-                file_with_html_extension = item.replace('.md', '.html')
-                generate_page(f"{dir_path_content}/{item}", template_path, f"{dest_dir_path}/{file_with_html_extension}")
+            file_with_html_extension = item.replace('.md', '.html')
+            generate_page(f"{dir_path_content}/{item}", template_path, f"{dest_dir_path}/{file_with_html_extension}", basepath)
         else:
-            #print(4)
-            try: 
-                #print(5)
-                os.mkdir(dest_dir_path)
-                #print(5.5)
-            except FileExistsError:
-                pass
-            generate_pages_recursive(f"{dir_path_content}/{item}", template_path, f"{dest_dir_path}/{item}")
+            generate_pages_recursive(f"{dir_path_content}/{item}", template_path, f"{dest_dir_path}/{item}", basepath)
 

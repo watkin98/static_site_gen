@@ -6,17 +6,17 @@ import traceback
 '''
 def main():
     try:
-        static_to_public_transfer()
+        static_to_docs_transfer()
     except Exception as e:
-        #print(f"Did not work, clearing public directory. \nException: {e}")
+        #print(f"Did not work, clearing docs directory. \nException: {e}")
         traceback.print_exc()
-        shutil.rmtree("../public/")
-        os.mkdir("../public")
+        shutil.rmtree("../docs/")
+        os.mkdir("../docs")
         '''
 
 def static_to_public_transfer():
     '''
-    Initiates the transfer of items in static directory to public. Requires that the 
+    Initiates the transfer of items in static directory to docs. Requires that the 
     function is called while program is executed from project root (static_site_gen), ideally
     accomplished with a script.
     '''
@@ -28,7 +28,7 @@ def static_to_public_transfer():
 def file_transferer(fpath):
     '''
     Takes in the relative directory path "static/" and undergoes the tasks to transfer the files to 
-    "public/".
+    "docs/".
     '''
     a_file = os.path.isfile(fpath)
     #print(f"Current fpath: {fpath}")
@@ -47,14 +47,14 @@ def file_transferer(fpath):
         if a_file:
             file_copier(working_dir, item)
         else:
-            # Create new path for item in public if necessary
-            #os.mkdir(f"../public/{item}")
+            # Create new path for item in docs if necessary
+            #os.mkdir(f"../docs/{item}")
             #print(f"Recursive Dir: {working_dir}\nfpath: {fpath}")
             file_transferer(working_dir)
 
 def file_copier(fpath, file):
     '''
-    Takes in a relative file path and file (or directory) name and makes a copy to the public directory.
+    Takes in a relative file path and file (or directory) name and makes a copy to the docs directory.
     '''
 
     # Remove the 'static/' from the string path
@@ -69,14 +69,14 @@ def file_copier(fpath, file):
 
     #print(f"Path: {fpath}\nSub Path: {sub_path}\nFile: {file}")
 
-    # If a directory, make a copy to the public directory. If the directory already exists, copy the
+    # If a directory, make a copy to the docs directory. If the directory already exists, copy the
     # file to it. If neither are true, subdirectory does not exist. Make it and copy the file to it.
     if sub_path_new == "":
-        shutil.copy(f"{fpath}", "public/")
-    elif os.path.exists(f"public/{sub_path_new}"):
-        shutil.copy(fpath, f"public/{sub_path_new}")
+        shutil.copy(f"{fpath}", "docs/")
+    elif os.path.exists(f"docs/{sub_path_new}"):
+        shutil.copy(fpath, f"docs/{sub_path_new}")
     else:
-        os.mkdir(f"public/{sub_path_new}")
-        shutil.copy(f"{fpath}", f"public/{sub_path_new}")
+        os.mkdir(f"docs/{sub_path_new}")
+        shutil.copy(f"{fpath}", f"docs/{sub_path_new}")
 
 #main()
