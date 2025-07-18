@@ -2,6 +2,8 @@
 from html_handlers import markdown_to_blocks
 from html_handlers import markdown_to_html_node
 
+import os
+
 def extract_title(markdown):
     '''
     Takes in a markdown file as a string and returns the title, which should be a line 
@@ -53,3 +55,40 @@ def generate_page(from_path, template_path, dest_path):
     #print(html_node)
     #print(html)
     #print(title_block)
+
+def generate_pages_recursive(dir_path_content, template_path, dest_dir_path):
+    #print(f"Content Dir: {dir_path_content}")
+    #print(f"Template Path: {template_path}")
+    #print(f"Destin Dir: {dest_dir_path}")
+
+    paths = os.listdir(dir_path_content)
+    #print(f"Current Paths:{paths}")
+
+    for item in paths:
+        #print(f"Item: {item}")
+        a_file = os.path.isfile(f"{dir_path_content}/{item}")
+        if a_file:
+            # Generate html file and move to public directory
+            #print(1)
+            try:
+                #print(2)
+                os.mkdir(dest_dir_path)
+                #print(2.5)
+                #print(f"Item: {item}")
+                file_with_html_extension = item.replace('.md', '.html')
+                generate_page(f"{dir_path_content}/{item}", template_path, f"{dest_dir_path}/{file_with_html_extension}")
+            except FileExistsError: 
+                #print(3)
+                #print(f"Item: {item}")
+                file_with_html_extension = item.replace('.md', '.html')
+                generate_page(f"{dir_path_content}/{item}", template_path, f"{dest_dir_path}/{file_with_html_extension}")
+        else:
+            #print(4)
+            try: 
+                #print(5)
+                os.mkdir(dest_dir_path)
+                #print(5.5)
+            except FileExistsError:
+                pass
+            generate_pages_recursive(f"{dir_path_content}/{item}", template_path, f"{dest_dir_path}/{item}")
+
