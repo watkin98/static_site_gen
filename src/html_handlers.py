@@ -160,7 +160,7 @@ def ul_text_list_to_html_nodes(lst):
     Takes in a string that is supposed to be an unordered list block and returns a list (python)
     of HTML nodes
     '''
-    #print(f"Incoming ul: {lst}\n")
+    #print(f"Incoming ul:\n {lst}\n")
     textnode_nodes = []
     html_nodes = []
     items_in_UL_list = lst.split('- ')[1:]
@@ -184,14 +184,20 @@ def ul_text_list_to_html_nodes(lst):
 
     listnodes = []
     for item in html_nodes:
-        if len(item) == 1:
+        if len(item) == 1 and item[0].tag != 'a':
+            #print(1)
             node = LeafNode('li', item[0].value)
             listnodes.append(node)
         else:
             ulListParentNodeWithMdElements = ParentNode(tag='li', children=[])
             for node in item:
                 #print(f"Node: {node}")
-                leafnode = LeafNode(node.tag, value=node.value)
+                if node.tag == 'a':
+                    #print(1)
+                    #print(f"Node: {node}\n Props: {node.props}")
+                    leafnode = LeafNode(node.tag, value=node.value, props=node.props)
+                else:
+                    leafnode = LeafNode(node.tag, value=node.value)
                 ulListParentNodeWithMdElements.children.append(leafnode)
             listnodes.append(ulListParentNodeWithMdElements)
 
